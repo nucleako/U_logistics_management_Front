@@ -72,16 +72,16 @@ const actions = {
       var arr = []
       //进行异步数组的过滤
       for(var k in roles){//将用户所有的角色遍历
-        // console.log(roles[k].name)//角色名称
+        console.log(roles[k])//角色名称
         asyncRoutes.forEach((item)=>{//依次和异步路由中的roles对比
-          if(item.meta&&item.meta.roles){
-            if(item.meta.roles.includes(roles[k].name)){
+          if( item.meta && item.meta.roles ){
+            if(item.meta.roles.includes(roles[k])){
               arr.push(item)//将符合要求的路由放入新数组
             }
           }
         })
       }
-      // console.log(arr)
+    //   console.log(arr)
       accessedRoutes = arr || []
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)

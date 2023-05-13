@@ -5,10 +5,10 @@
               添加
           </el-button>
         <el-input v-model="id" placeholder="请输入编号" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-button  class="filter-item" style="margin-left: 3px;width:90px;" icon="el-icon-search" @click="handleFilter">
+        <el-button  class="filter-item" style="width:90px;" icon="el-icon-search" @click="handleFilter">
           搜索
         </el-button>
-        <el-button  class="filter-item" style="margin-left: 3px;width:90px;" icon="el-icon-refresh" @click="getTrans">
+        <el-button  class="filter-item" style="width:90px;" icon="el-icon-refresh" @click="getTrans">
           刷新
         </el-button>
       </div>
@@ -299,6 +299,10 @@ export default {
 }
 </script>
 <style>
+  .filter-item{
+    margin-left: 10px;
+    width: 200px;
+  }
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;

@@ -143,6 +143,10 @@
   .filter-container{
     font-size: 13px;
   }
+  .filter-item{
+    margin-left: 10px;
+    width: 200px;
+  }
   .top_item{
     background-color: rgba(232, 232, 232,0.5);
     margin-top: 5px;

@@ -1,24 +1,24 @@
   <template>
     <div class="app-container">
       <div class="filter-container">
-        <el-input v-model="searchForm.id" placeholder="运单编号" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-input v-model="searchForm.OrderID" placeholder="订单编号" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-input v-model="searchForm.CarrierId" placeholder="承运商编号" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+        <el-input v-model="searchForm.id" placeholder="运单编号"  class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="searchForm.OrderID" placeholder="订单编号"  class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="searchForm.CarrierId" placeholder="承运商编号"  class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter"  style="margin-left: 10px;width:90px; margin-right:10px">
         搜索
       </el-button>
-      <el-button  class="filter-item" style="margin-left: 3px;width:90px; margin-right:10px" icon="el-icon-refresh"
+      <el-button  class="filter-item" style="margin-left: 10px;width:90px; margin-right:10px" icon="el-icon-refresh"
 			@click="getRefresh">
         	刷新
-        </el-button>
+      </el-button>
       {{searchForm }}
       <div class="finishitem" v-for="item in list" :key="item.id">
     	<div class="top_item">
 			<!-- <span>下单时间：{{item.OrderDate}}</span> -->
 			<span style="margin-left: 150px;">运单编号：{{item.id}}</span>
-			<span style="margin-left:200px ;">运单总额：{{item.money}}</span>
-      <span style="margin-left: 200px;">订单编号：{{item.OrderID}}</span>
-			<span style="margin-left:200px ;">承运商编号：{{item.CarrierId }}</span>
+			<span style="margin-left:100px ;">运单总额：{{item.money}}</span>
+      <span style="margin-left: 100px;">订单编号：{{item.OrderID}}</span>
+			<span style="margin-left:100px ;">承运商编号：{{item.CarrierId }}</span>
 			<span style="margin-right:150px ;float: right;">
 				运单状态：
         <el-tag :type="item.arrive | statusFilter">
@@ -151,6 +151,11 @@
   .filter-container{
     font-size: 13px;
   }
+  .filter-item{
+    margin-left: 10px;
+    width: 200px;
+  }
+
   .top_item{
     background-color: rgba(232, 232, 232,0.5);
     margin-top: 5px;
@@ -173,7 +178,7 @@
   .bottom_item .right_item{
     float: right;
     position: relative;
-    right: 300px;
+    right: 100px;
   }
   .c{
     clear: both;

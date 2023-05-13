@@ -161,47 +161,8 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/bill',
-    component: Layout,
-    name: 'Bill',
-    meta: {
-      title: '财务管理',
-      icon: 'el-icon-s-help'
-    },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/bill/index'),
-        name: 'Bill',
-        meta: { title: '对账单管理', icon: 'edit', affix: true},
-        roles:['admin']
-      }
-    ]
-  },
-  {
-    path: '/user',
-    component: Layout,
-    name: 'User',
-    meta: {
-      title: '角色权限',
-      icon: 'exit-fullscreen'
-    },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/user/index'),
-        name: 'userIndex',
-        meta: { title: '用户管理', icon: 'edit' }
-      },
-      // {
-      //   path: 'role',
-      //   component: () => import('@/views/user/role'),
-      //   name: 'role',
-      //   meta: { title: '角色管理',  icon: 'edit' }
-      // }
-    ]
-  },
+
+
   {
     path: '/person',
     component: Layout,
@@ -270,16 +231,44 @@ export const asyncRoutes = [
     name: 'Bill',
     meta: {
       title: '财务管理',
-      icon: 'el-icon-s-help'
+      icon: 'el-icon-s-help',
+      roles:['admin']
     },
     children: [
       {
         path: 'index',
         component: () => import('@/views/bill/index'),
         name: 'Bill',
-        meta: { title: '对账单管理', icon: 'edit', affix: true},
-        roles:['admin']
+        meta: { 
+          title: '对账单管理', 
+          icon: 'edit', 
+          affix: true,
+        },
       }
+    ]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    name: 'User',
+    meta: {
+      title: '角色权限',
+      icon: 'exit-fullscreen',
+      roles:['admin']
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/user/index'),
+        name: 'userIndex',
+        meta: { title: '用户管理', icon: 'edit' }
+      },
+      // {
+      //   path: 'role',
+      //   component: () => import('@/views/user/role'),
+      //   name: 'role',
+      //   meta: { title: '角色管理',  icon: 'edit' }
+      // }
     ]
   },
   {
@@ -505,9 +494,7 @@ const createRouter = () => new Router({
 })
 
 const router = createRouter()
-export function addRoutes(routes) {
-   asyncRoutes = routes.router.addRoutes(routes) 
-  }
+
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
   const newRouter = createRouter()
