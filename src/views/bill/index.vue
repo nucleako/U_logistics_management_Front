@@ -4,11 +4,11 @@
           <el-button class="filter-item" style="margin-left: 10px;width:70px;margin-right:10px" type="primary"  @click="handleCreate">
               添加
           </el-button>
-        <el-input v-model="id" placeholder="请输入编号" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-button  class="filter-item" style="margin-left: 3px;width:90px;" icon="el-icon-search" @click="handleFilter">
+        <el-input v-model="id" placeholder="请输入编号" style="width: 200px;margin-left: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-button  class="filter-item" style="margin-left: 3px;width:90px;margin-left: 10px;" icon="el-icon-search" @click="handleFilter">
             搜索
         </el-button>
-        <el-button  class="filter-item" style="margin-left: 3px;width:90px;" icon="el-icon-refresh" @click="getRefresh">
+        <el-button  class="filter-item" style="margin-left: 3px;width:90px;margin-left: 10px;" icon="el-icon-refresh" @click="getRefresh">
           刷新
         </el-button>
         <exportExcel style="float: right; position: relative;top: -20px;left: -50px;"/>

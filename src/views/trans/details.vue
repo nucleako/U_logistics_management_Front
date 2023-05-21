@@ -33,11 +33,12 @@
             <h4>联系人电话:{{item.SendPhone}}</h4>
             <h4 style="max-width: 1000px;">发件地址:{{item.Origin}}</h4>
           </div>
-		  <div style="margin-right:100px;float: right;width:500px">
+		<div style="margin-right:100px;float: right;width:500px">
+			<h4 style="height: 14px;"></h4>
 			<h4>收件联系人:{{item.ReceiverName}}</h4>
 			<h4>联系人电话:{{item.ReceiverPhone}}</h4>
 			<h4 style="max-width: 1000px;">收件地址:{{item.ReceiverAddress }}</h4>
-          </div>
+    	</div>
         <div class="c"></div>
       </div>
     </div>

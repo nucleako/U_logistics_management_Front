@@ -1,61 +1,70 @@
 <template>
   <el-row :gutter="40" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper icon-people">
-          <svg-icon icon-class="peoples" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            客户
+      <router-link to="/customer/index" class="card-panel">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper icon-people">
+            <svg-icon icon-class="peoples" class-name="card-panel-icon" />
           </div>
-          <count-to :start-val="0" :end-val="customSum" :duration="2600" class="card-panel-num" />
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              客户
+            </div>
+            <count-to :start-val="0" :end-val="customSum" :duration="2600" class="card-panel-num" />
+          </div>
         </div>
-      </div>
+    </router-link>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper icon-message">
-          <svg-icon icon-class="peoples" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            用户
+      <router-link to="/user/index" class="card-panel">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper icon-message">
+            <svg-icon icon-class="peoples" class-name="card-panel-icon" />
           </div>
-          <count-to :start-val="0" :end-val="userSum" :duration="3000" class="card-panel-num" />
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              用户
+            </div>
+            <count-to :start-val="0" :end-val="userSum" :duration="3000" class="card-panel-num" />
+          </div>
         </div>
-      </div>
+      </router-link>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper icon-money">
-          <svg-icon icon-class="money" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            订单
+      <router-link to="/list/index" class="card-panel">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper icon-money">
+            <svg-icon icon-class="money" class-name="card-panel-icon" />
           </div>
-          <count-to :start-val="0" :end-val="orderSum" :duration="3200" class="card-panel-num" />
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              订单
+            </div>
+            <count-to :start-val="0" :end-val="orderSum" :duration="3200" class="card-panel-num" />
+          </div>
         </div>
-      </div>
+      </router-link>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper icon-shopping">
-          <svg-icon icon-class="shopping" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            运单
+      <router-link to="/trans/index" class="card-panel">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper icon-shopping">
+            <svg-icon icon-class="shopping" class-name="card-panel-icon" />
           </div>
-          <count-to :start-val="0" :end-val="tranSum" :duration="3600" class="card-panel-num" />
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              运单
+            </div>
+            <count-to :start-val="0" :end-val="tranSum" :duration="3600" class="card-panel-num" />
+          </div>
         </div>
-      </div>
+        </router-link>
     </el-col>
   </el-row>
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
 import CountTo from 'vue-count-to'
 import {get,post,post_json} from '../../../../utils/request'
 export default {

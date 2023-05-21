@@ -5,11 +5,11 @@
       <el-button class="filter-item" style="margin-left: 10px;width:70px;margin-right:10px" type="primary"  @click="handleCreate">
         添加
     </el-button>
-      <el-input v-model="id" placeholder="请输入编号" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-button class="filter-item" style="margin-left: 3px;width:90px;" icon="el-icon-search" @click="handleFilter">
+      <el-input v-model="id" placeholder="请输入编号" style="width: 200px;margin-right:10px" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-button class="filter-item" style="margin-left: 3px;width:90px;margin-right:10px" icon="el-icon-search" @click="handleFilter">
         搜索
       </el-button>
-      <el-button  class="filter-item" style="margin-left: 3px;width:90px;" icon="el-icon-refresh" @click="getCustomerList">
+      <el-button  class="filter-item" style="margin-left: 3px;width:90px;margin-right:10px" icon="el-icon-refresh" @click="getCustomerList">
         刷新
          </el-button>
     </div>
@@ -28,12 +28,12 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="客户" width="150px">
+      <el-table-column label="客户" width="100px">
         <template slot-scope="{row}">
           <span >{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="客户性别" width="150px">
+      <el-table-column label="客户性别" width="100px">
         <template slot-scope="{row}">
           <span >{{ row.gender ? '男':'女' }}</span>
         </template>
@@ -43,12 +43,12 @@
           <span >{{ row.phone }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="公司名" width="350px">
+      <el-table-column label="公司名" width="300px">
         <template slot-scope="{row}">
           <span >{{ row.CompanyName.slice(0,15) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="地址" width="400px">
+      <el-table-column label="地址" min-width="300px">
         <template slot-scope="{row}">
           <span >{{ row.addr }}</span>
         </template>
