@@ -121,7 +121,7 @@
         <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
           Confirm
         </el-button>
-      </div>{{ temp }}
+      </div>
     </el-dialog>
 
 

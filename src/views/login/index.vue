@@ -257,6 +257,9 @@ $light_gray:#eee;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
+  background-image: linear-gradient(133deg,#184e68,#56265b,#184e68,#3135a0);
+  background-size: 400%;
+  animation: bgMove 10s infinite;
 
   .login-form {
     position: relative;
@@ -318,6 +321,17 @@ $light_gray:#eee;
   @media only screen and (max-width: 470px) {
     .thirdparty-button {
       display: none;
+    }
+  }
+  @keyframes bgMove {
+    0%{
+      background-position: 0,50%;
+    }
+    50%{
+      background-position: 50%,50%;
+    }
+    100%{
+      background-position: 0,50%;
     }
   }
 }

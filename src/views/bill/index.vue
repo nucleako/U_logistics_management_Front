@@ -88,7 +88,7 @@
                 <el-radio v-model="temp.state" label="1">已完结</el-radio>
                 <el-radio v-model="temp.state" label="0">未完结</el-radio>
               </el-form-item>
-          </el-form>{{temp}}
+          </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button @click="dialogFormVisible = false" >
               取消

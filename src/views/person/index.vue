@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-page-header @back="goBack" content="返回"></el-page-header>
+        <el-page-header @back="goBack" content=""></el-page-header>
         <!-- 头像显示与修改头像 -->
         <div class="img">
             <el-form label-width="80px">
@@ -30,7 +30,7 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                 </el-form-item>
-              </el-form>{{temp}}
+              </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="centerDialogVisible = false">取 消</el-button>
                 <el-button type="primary" @click="onsubmitimg()">确 定</el-button>
@@ -94,14 +94,13 @@
                   <el-form-item label="简介" prop="introduction">
                     <el-input v-model="form.introduction" />
                   </el-form-item>
-              </el-form>{{form}}
+              </el-form>
               <span slot="footer" class="dialog-footer">
                 <el-button @click="centerDialogVisible1 = false">取 消</el-button>
                 <el-button type="primary" @click="onsubmitinfo()">确 定</el-button>
              </span>
             </el-dialog>
         </div>
-        {{$store.state.user.user_data}}
     </div>
 </template>
 <script>

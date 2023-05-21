@@ -79,7 +79,7 @@
               <el-input v-model="temp.location" />
             </el-form-item>
           </el-form>
-            {{temp}}
+            
           <div slot="footer" class="dialog-footer">
             <el-button @click="dialogFormVisible = false" >
               取消
