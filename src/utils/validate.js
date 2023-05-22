@@ -1,5 +1,4 @@
 
-
 /**
  * @param {string} path
  * @returns {Boolean}
@@ -12,9 +11,9 @@ export function isExternal(path) {
  * @param {string} str
  * @returns {Boolean}
  */
-export function validUsername(str) {//用户名约束
-  const valid_map = ['admin', 'editor','admin1']//只有这三个用户可以登录
-  return valid_map.indexOf(str.trim()) >= 0//不想严重可以直接返回true
+export function validUsername(str) { // 用户名约束
+  const valid_map = ['admin', 'editor', 'admin1']// 只有这三个用户可以登录
+  return valid_map.indexOf(str.trim()) >= 0// 不想严重可以直接返回true
 }
 
 /**

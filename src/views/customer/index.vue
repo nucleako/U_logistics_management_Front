@@ -2,16 +2,16 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-button class="filter-item" style="margin-left: 10px;width:70px;margin-right:10px" type="primary"  @click="handleCreate">
+      <el-button class="filter-item" style="margin-left: 10px;width:70px;margin-right:10px" type="primary" @click="handleCreate">
         添加
-    </el-button>
+      </el-button>
       <el-input v-model="id" placeholder="请输入编号" style="width: 200px;margin-right:10px" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-button class="filter-item" style="margin-left: 3px;width:90px;margin-right:10px" icon="el-icon-search" @click="handleFilter">
         搜索
       </el-button>
-      <el-button  class="filter-item" style="margin-left: 3px;width:90px;margin-right:10px" icon="el-icon-refresh" @click="getCustomerList">
+      <el-button class="filter-item" style="margin-left: 3px;width:90px;margin-right:10px" icon="el-icon-refresh" @click="getCustomerList">
         刷新
-         </el-button>
+      </el-button>
     </div>
     <el-table
       :key="tableKey"
@@ -30,27 +30,27 @@
       </el-table-column>
       <el-table-column label="客户" width="100px">
         <template slot-scope="{row}">
-          <span >{{ row.name }}</span>
+          <span>{{ row.name }}</span>
         </template>
       </el-table-column>
       <el-table-column label="客户性别" width="100px">
         <template slot-scope="{row}">
-          <span >{{ row.gender ? '男':'女' }}</span>
+          <span>{{ row.gender ? '男':'女' }}</span>
         </template>
       </el-table-column>
       <el-table-column label="手机号" width="200px">
         <template slot-scope="{row}">
-          <span >{{ row.phone }}</span>
+          <span>{{ row.phone }}</span>
         </template>
       </el-table-column>
       <el-table-column label="公司名" width="300px">
         <template slot-scope="{row}">
-          <span >{{ row.CompanyName.slice(0,15) }}</span>
+          <span>{{ row.CompanyName.slice(0,15) }}</span>
         </template>
       </el-table-column>
       <el-table-column label="地址" min-width="300px">
         <template slot-scope="{row}">
-          <span >{{ row.addr }}</span>
+          <span>{{ row.addr }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="230" class-name="small-padding fixed-width">
@@ -69,38 +69,38 @@
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.pageSize" @pagination="getCustomerList" />
-      <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-        <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="90px" style="width: 500px; margin-left:50px;" :disabled="formDisable">
-          <el-form-item label="编号" prop="id">
-            <el-input v-model="temp.id" />
-          </el-form-item>
-          <el-form-item label="客户" prop="name">
-            <el-input v-model="temp.name" />
-          </el-form-item>
-		  <el-form-item label="性别" prop="gender">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="90px" style="width: 500px; margin-left:50px;" :disabled="formDisable">
+        <el-form-item label="编号" prop="id">
+          <el-input v-model="temp.id" />
+        </el-form-item>
+        <el-form-item label="客户" prop="name">
+          <el-input v-model="temp.name" />
+        </el-form-item>
+        <el-form-item label="性别" prop="gender">
           <el-radio v-model="temp.gender" label="1">男</el-radio>
           <el-radio v-model="temp.gender" label="0">女</el-radio>
         </el-form-item>
-            <el-form-item label="手机号" prop="phone">
-            <el-input v-model="temp.phone" />
-          </el-form-item>
-          <el-form-item label="公司名" prop="CompanyName">
-            <el-input v-model="temp.CompanyName" />
-          </el-form-item>
-          <el-form-item label="地址" prop="addr">
-            <el-input v-model="temp.addr" />
-          </el-form-item>
-        </el-form>
-          
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false" >
-            取消
-          </el-button>
-          <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()" :disabled="formDisable">
-            确定
-          </el-button>
-        </div>
-      </el-dialog>
+        <el-form-item label="手机号" prop="phone">
+          <el-input v-model="temp.phone" />
+        </el-form-item>
+        <el-form-item label="公司名" prop="CompanyName">
+          <el-input v-model="temp.CompanyName" />
+        </el-form-item>
+        <el-form-item label="地址" prop="addr">
+          <el-input v-model="temp.addr" />
+        </el-form-item>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">
+          取消
+        </el-button>
+        <el-button type="primary" :disabled="formDisable" @click="dialogStatus==='create'?createData():updateData()">
+          确定
+        </el-button>
+      </div>
+    </el-dialog>
 
   </div>
 </template>
@@ -108,7 +108,7 @@
 <script>
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import {get,post,post_json} from '../../utils/request'
+import { get, post, post_json } from '../../utils/request'
 // const calendarTypeOptions = [
 //   { key: 'CN', display_name: 'China' },
 //   { key: 'US', display_name: 'USA' },
@@ -135,20 +135,20 @@ export default {
         pageSize: 10
       },
       dialogPvVisible: false,
-      id:undefined,
-      temp:{
-        id:undefined,
+      id: undefined,
+      temp: {
+        id: undefined
       },
       dialogFormVisible: false,
       dialogStatus: '',
-      textMap:{
+      textMap: {
         update: 'Edit',
         create: 'Create'
       },
       rules: {
         username: [{ required: true, message: 'title is required', trigger: 'blur' }]
       },
-      formDisable:false
+      formDisable: false
     }
   },
   created() {
@@ -157,17 +157,17 @@ export default {
   methods: {
     getCustomerList() {
       this.listLoading = true
-      get('/customer/pageQuery',this.listQuery).then((res)=>{
+      get('/customer/pageQuery', this.listQuery).then((res) => {
         this.list = res.data.list
         this.total = res.data.total
         this.listLoading = false
-        this.id=undefined
+        this.id = undefined
       })
     },
     handleFilter() {
-      get('customer/findCustomerById',{id:this.id}).then((res)=>{
-        this.list=res.data;
-        this.total=res.data.length;
+      get('customer/findCustomerById', { id: this.id }).then((res) => {
+        this.list = res.data
+        this.total = res.data.length
       })
     },
     handleModifyStatus(row, status) {
@@ -193,11 +193,11 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        id: undefined,
+        id: undefined
       }
     },
     handleCreate() {
-      this.formDisable=false;
+      this.formDisable = false
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
@@ -208,9 +208,9 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          post('/customer/saveOrUpdate',this.temp).then((res)=>{
+          post('/customer/saveOrUpdate', this.temp).then((res) => {
             this.dialogFormVisible = false
-            this.getCustomerList()//重新更新数据
+            this.getCustomerList()// 重新更新数据
             this.$notify({
               title: 'Success',
               message: '保存成功！',
@@ -221,11 +221,11 @@ export default {
         }
       })
     },
-    handleUpdate(row,action) {
-      if(action==='see'){
-        this.formDisable=true;
-      }else{
-        this.formDisable=false;
+    handleUpdate(row, action) {
+      if (action === 'see') {
+        this.formDisable = true
+      } else {
+        this.formDisable = false
       }
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
@@ -237,9 +237,9 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          post('/customer/saveOrUpdate',this.temp).then((res)=>{
+          post('/customer/saveOrUpdate', this.temp).then((res) => {
             this.dialogFormVisible = false
-            this.getCustomerList()//重新更新数据
+            this.getCustomerList()// 重新更新数据
             this.$notify({
               title: 'Success',
               message: '修改成功！',
@@ -252,23 +252,23 @@ export default {
     },
     handleDelete(id) {
       this.$confirm('此操作将永久删除, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-           get('customer/deleteById',{id:id}).then(()=>{
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        get('customer/deleteById', { id: id }).then(() => {
           this.getCustomerList()
         })
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
     formatJson(filterVal) {
       return this.list.map(v => filterVal.map(j => {
@@ -314,6 +314,5 @@ export default {
   height: 178px;
   display: block;
 }
-
 
 </style>

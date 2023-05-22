@@ -30,13 +30,14 @@ import Layout from '@/layout'
   }
  */
 
-  // 固定路由
+// 固定路由
 /**
  * constantRoutes
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
 export const constantRoutes = [
+  { path: '*', redirect: '/404' },
   {
     path: '/redirect',
     component: Layout,
@@ -90,18 +91,18 @@ export const constantRoutes = [
     },
     children: [
       {
-        roles:['admin','editor'],
+        roles: ['admin', 'editor'],
         path: 'index',
         component: () => import('@/views/list/index'),
         name: 'list',
-        meta: { title: '订单管理', icon: 'list', affix: true}
+        meta: { title: '订单管理', icon: 'list', affix: true }
       },
       {
         path: 'details',
         component: () => import('@/views/list/details'),
         name: 'Details',
-        meta: { title: '订单详情',  icon: 'edit' }
-      },
+        meta: { title: '订单详情', icon: 'edit' }
+      }
     ]
   },
   {
@@ -113,18 +114,18 @@ export const constantRoutes = [
     },
     children: [
       {
-        roles:['admin','editor'],
+        roles: ['admin', 'editor'],
         path: 'index',
         component: () => import('@/views/trans/index'),
         name: 'Trans',
-        meta: { title: '运单管理', icon: 'list', affix: true}
+        meta: { title: '运单管理', icon: 'list', affix: true }
       },
       {
         path: 'details',
         component: () => import('@/views/trans/details'),
         name: 'Details',
-        meta: { title: '运单详情',  icon: 'edit' }
-      },
+        meta: { title: '运单详情', icon: 'edit' }
+      }
     ]
   },
 
@@ -133,11 +134,11 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        roles:['admin','editor'],
+        roles: ['admin', 'editor'],
         path: 'index',
         component: () => import('@/views/carriers/index'),
         name: 'Carriers',
-        meta: { title: '承运商管理', icon: 'form', affix: true}
+        meta: { title: '承运商管理', icon: 'form', affix: true }
       }
     ]
   },
@@ -154,7 +155,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/customer/index'),
         name: 'Customer',
-        meta: { title: '客户管理', icon: 'edit', affix: true}
+        meta: { title: '客户管理', icon: 'edit', affix: true }
       }
     ]
   },
@@ -163,11 +164,11 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        roles:['admin','editor'],
+        roles: ['admin', 'editor'],
         path: 'index',
         component: () => import('@/views/person/index.vue'),
         name: 'Person',
-        meta: { title: '个人信息', icon: 'user', affix: true}
+        meta: { title: '个人信息', icon: 'user', affix: true }
       }
     ]
   },
@@ -176,14 +177,14 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        roles:['admin','editor'],
+        roles: ['admin', 'editor'],
         path: 'index',
         component: () => import('@/views/aboutsystem/index'),
         name: 'Aboutsystem',
-        meta: { title: '关于系统', icon: 'guide', affix: true}
+        meta: { title: '关于系统', icon: 'guide', affix: true }
       }
     ]
-  },
+  }
 ]
 // 异步路由-权限路由
 // 虽然vue-admin帮我们分出来2部分的路由，但是核心的判断逻辑他没有写
@@ -199,18 +200,18 @@ export const asyncRoutes = [
     meta: {
       title: '财务管理',
       icon: 'el-icon-s-help',
-      roles:['admin']
+      roles: ['admin']
     },
     children: [
       {
         path: 'index',
         component: () => import('@/views/bill/index'),
         name: 'Bill',
-        meta: { 
-          title: '对账单管理', 
-          icon: 'edit', 
-          affix: true,
-        },
+        meta: {
+          title: '对账单管理',
+          icon: 'edit',
+          affix: true
+        }
       }
     ]
   },
@@ -221,7 +222,7 @@ export const asyncRoutes = [
     meta: {
       title: '角色权限',
       icon: 'exit-fullscreen',
-      roles:['admin']
+      roles: ['admin']
     },
     children: [
       {
@@ -229,7 +230,7 @@ export const asyncRoutes = [
         component: () => import('@/views/user/index'),
         name: 'userIndex',
         meta: { title: '用户管理', icon: 'edit' }
-      },
+      }
     ]
   },
   {
@@ -282,30 +283,30 @@ export const asyncRoutes = [
   // nestedRouter,
   // tableRouter,
 
-  // {
-  //   path: '/error',
-  //   component: Layout,
-  //   redirect: 'noRedirect',
-  //   name: 'ErrorPages',
-  //   meta: {
-  //     title: 'Error Pages',
-  //     icon: '404'
-  //   },
-  //   children: [
-  //     {
-  //       path: '401',
-  //       component: () => import('@/views/error-page/401'),
-  //       name: 'Page401',
-  //       meta: { title: '401', noCache: true }
-  //     },
-  //     {
-  //       path: '404',
-  //       component: () => import('@/views/error-page/404'),
-  //       name: 'Page404',
-  //       meta: { title: '404', noCache: true }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/error',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'ErrorPages',
+    meta: {
+      title: 'Error Pages',
+      icon: '404'
+    },
+    children: [
+      {
+        path: '401',
+        component: () => import('@/views/error-page/401'),
+        name: 'Page401',
+        meta: { title: '401', noCache: true }
+      },
+      {
+        path: '404',
+        component: () => import('@/views/error-page/404'),
+        name: 'Page404',
+        meta: { title: '404', noCache: true }
+      }
+    ]
+  }
 
   // {
   //   path: '/error-log',
@@ -321,7 +322,6 @@ export const asyncRoutes = [
   // },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({

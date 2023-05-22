@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+// import { validUsername } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
 
 export default {
@@ -84,7 +84,7 @@ export default {
       }
     }
 
-    const validatePassword = (rule, value, callback) => {//密码的约束函数
+    const validatePassword = (rule, value, callback) => { // 密码的约束函数
       if (!value) {
         return callback(new Error('请输入密码'))
       }
@@ -92,14 +92,13 @@ export default {
         return callback(new Error('密码长度不能少于6位'))
       }
       callback()
-
     }
     return {
-      loginForm: {//表单提交的数据
+      loginForm: { // 表单提交的数据
         username: 'admin1',
         password: '123321'
       },
-      loginRules: {//用户名密码的约束
+      loginRules: { // 用户名密码的约束
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
@@ -151,9 +150,9 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {//点击登录按钮时触发的方法
+    handleLogin() { // 点击登录按钮时触发的方法
       this.$refs.loginForm.validate(valid => {
-        if (valid) {//表单验证通过后，可以进入
+        if (valid) { // 表单验证通过后，可以进入
           this.loading = true
           // 将数据对象提交给仓库下user模块中的login方法处理
           this.$store.dispatch('user/login', this.loginForm)

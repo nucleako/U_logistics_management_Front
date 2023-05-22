@@ -1,9 +1,9 @@
 <template>
   <div class="social-signup-container">
     <div>
-      <div class="jpg" v-show="wximg"></div>
-      <div class="jpg" v-show="qqimg"></div>
-      <div class="c"></div>
+      <div v-show="wximg" class="jpg" />
+      <div v-show="qqimg" class="jpg" />
+      <div class="c" />
     </div>
     <div class="sign-btn" @click="wechatHandleClick('wechat')">
       <span class="wx-svg-container"><svg-icon icon-class="wechat" class="icon" /></span>
@@ -24,8 +24,8 @@ export default {
   name: 'SocialSignin',
   data() {
     return {
-      wximg:false,
-      qqimg:false,
+      wximg: false,
+      qqimg: false
     }
   },
   methods: {

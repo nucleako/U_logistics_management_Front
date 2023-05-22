@@ -98,4 +98,10 @@ export default {
 .pagination-container.hidden {
   display: none;
 }
+
 </style>
+<style scoped>
+.pagination-container .el-pagination__total,
+.pagination-container .el-pagination__sizes {
+  margin-right: 300px; /* 调整 size 和 total 元素的右侧间距 */
+}

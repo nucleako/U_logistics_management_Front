@@ -1,16 +1,16 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-button class="filter-item" style="margin-left: 10px;width:70px;margin-right:10px" type="primary"  @click="handleCreate">
+      <el-button class="filter-item" style="margin-left: 10px;width:70px;margin-right:10px" type="primary" @click="handleCreate">
         添加
-    </el-button>
+      </el-button>
       <el-input v-model="id" placeholder="请输入编号" style="width: 200px;margin-left: 10px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-button class="filter-item" style="margin-left: 3px;width:90px;margin-left: 10px;" icon="el-icon-search" @click="handleFilter">
         搜索
       </el-button>
-      <el-button  class="filter-item" style="margin-left: 3px;width:90px;margin-left: 10px;" icon="el-icon-refresh" @click="getRefresh">
+      <el-button class="filter-item" style="margin-left: 3px;width:90px;margin-left: 10px;" icon="el-icon-refresh" @click="getRefresh">
         刷新
-         </el-button>
+      </el-button>
     </div>
 
     <el-table
@@ -28,31 +28,31 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="用户名" align="center" >
+      <el-table-column label="用户名" align="center">
         <template slot-scope="{row}">
-          <span >{{ row.username }}</span>
+          <span>{{ row.username }}</span>
         </template>
       </el-table-column>
       <el-table-column label="性别" align="center">
         <template slot-scope="{row}">
-          <span v-if="row.gender=='1'" >男</span>
-          <span v-if="row.gender=='0'" >女</span>
+          <span v-if="row.gender=='1'">男</span>
+          <span v-if="row.gender=='0'">女</span>
         </template>
       </el-table-column>
       <el-table-column label="手机号" align="center">
         <template slot-scope="{row}">
-          <span >{{ row.telephone }}</span>
+          <span>{{ row.telephone }}</span>
         </template>
       </el-table-column>
       <el-table-column label="真实姓名" align="center">
         <template slot-scope="{row}">
-          <span >{{ row.realname }}</span>
+          <span>{{ row.realname }}</span>
         </template>
       </el-table-column>
       <el-table-column label="角色" align="center">
         <template slot-scope="{row}">
           <el-tag :type="row.roles | statusFilter">
-          <span >{{ row.roles == 'admin'?'管理员':'普通用户' }}</span>
+            <span>{{ row.roles == 'admin'?'管理员':'普通用户' }}</span>
           </el-tag>
         </template>
       </el-table-column>
@@ -124,7 +124,6 @@
       </div>
     </el-dialog>
 
-
   </div>
 </template>
 
@@ -132,8 +131,7 @@
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import {get,post,post_json} from '../../utils/request'
-
+import { get, post } from '../../utils/request'
 
 export default {
   name: 'ComplexTable',
@@ -142,11 +140,11 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        "admin": 'success',
-        "viewer": 'info'
+        'admin': 'success',
+        'viewer': 'info'
       }
       return statusMap[status]
-    },
+    }
 
   },
   data() {
@@ -159,21 +157,21 @@ export default {
         page: 1,
         pageSize: 10
       },
-      id:undefined,
+      id: undefined,
       temp: {
         id: undefined,
-        username: '',
+        username: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
-      textMap:{
+      textMap: {
         update: 'Edit',
         create: 'Create'
       },
       rules: {
         username: [{ required: true, message: 'title is required', trigger: 'blur' }]
       },
-      formDisable:false
+      formDisable: false
     }
   },
   created() {
@@ -182,21 +180,21 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      get('/user/pageQuery',this.listQuery).then((res)=>{
+      get('/user/pageQuery', this.listQuery).then((res) => {
         console.log(res)
         this.list = res.data.list
         this.total = res.data.total
         this.listLoading = false
       })
     },
-    getRefresh(){
-      this.getList();
-      this.id=undefined
+    getRefresh() {
+      this.getList()
+      this.id = undefined
     },
     handleFilter() {
-      get('user/findUserById',{id:this.id}).then((res)=>{
-        var list1=[res.data,]
-        this.list=list1
+      get('user/findUserById', { id: this.id }).then((res) => {
+        var list1 = [res.data]
+        this.list = list1
       })
     },
     handleModifyStatus(row, status) {
@@ -223,7 +221,7 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        username: '',
+        username: ''
       }
     },
     // handleRoles(id,roles){
@@ -236,7 +234,7 @@ export default {
     //   this.dialogRolesVisible = true//打开模态框
     // },
     handleCreate() {
-      this.formDisable=false;
+      this.formDisable = false
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
@@ -259,9 +257,9 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          post('/user/saveOrUpdate',this.temp).then((res)=>{
+          post('/user/saveOrUpdate', this.temp).then((res) => {
             this.dialogFormVisible = false
-            this.getList()//重新更新数据
+            this.getList()// 重新更新数据
             this.$notify({
               title: 'Success',
               message: '保存成功！',
@@ -272,27 +270,26 @@ export default {
         }
       })
     },
-    handleUpdate(row,action) {
-      if(action==='see'){
-        this.formDisable=true;
-      }else{
-        this.formDisable=false;
+    handleUpdate(row, action) {
+      if (action === 'see') {
+        this.formDisable = true
+      } else {
+        this.formDisable = false
       }
-        this.temp = Object.assign({}, row) // copy obj
-        this.temp.gender=this.temp.gender.toString(2)
-        this.temp.roles=this.temp.roles
-        this.dialogStatus = 'update'
-        this.dialogFormVisible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })
+      this.temp = Object.assign({}, row) // copy obj
+      this.temp.gender = this.temp.gender.toString(2)
+      this.dialogStatus = 'update'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
     },
     updateData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          post('/user/saveOrUpdate',this.temp).then((res)=>{
+          post('/user/saveOrUpdate', this.temp).then((res) => {
             this.dialogFormVisible = false
-            this.getList()//重新更新数据
+            this.getList()// 重新更新数据
             this.$notify({
               title: 'Success',
               message: '修改成功！',
@@ -305,23 +302,23 @@ export default {
     },
     handleDelete(id) {
       this.$confirm('此操作将永久删除, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-           get('user/deleteById',{id:id}).then(()=>{
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        get('user/deleteById', { id: id }).then(() => {
           this.getList()
         })
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
     formatJson(filterVal) {
       return this.list.map(v => filterVal.map(j => {
@@ -367,6 +364,5 @@ export default {
   height: 178px;
   display: block;
 }
-
 
 </style>

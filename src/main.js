@@ -46,7 +46,7 @@ Vue.use(BaiduMap, {
 
   ak: 'OsUVlipnBga2r5VtkwjxyEjVyLuZiT3u'
 
-});
+})
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

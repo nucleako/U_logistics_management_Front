@@ -13,7 +13,7 @@
             <count-to :start-val="0" :end-val="customSum" :duration="2600" class="card-panel-num" />
           </div>
         </div>
-    </router-link>
+      </router-link>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <router-link to="/user/index" class="card-panel">
@@ -58,60 +58,60 @@
             <count-to :start-val="0" :end-val="tranSum" :duration="3600" class="card-panel-num" />
           </div>
         </div>
-        </router-link>
+      </router-link>
     </el-col>
   </el-row>
 </template>
 
 <script>
-import { RouterLink } from 'vue-router';
+import { RouterLink } from 'vue-router'
 import CountTo from 'vue-count-to'
-import {get,post,post_json} from '../../../../utils/request'
+import { get, post, post_json } from '../../../../utils/request'
 export default {
   components: {
     CountTo
   },
-  data(){
-    return{
-      customSum:undefined,
-      userSum:undefined,
-      orderSum:undefined,
-      tranSum:undefined,
+  data() {
+    return {
+      customSum: undefined,
+      userSum: undefined,
+      orderSum: undefined,
+      tranSum: undefined,
       listQuery: {
-        page:1,
-        pageSize:9999,
-      },
+        page: 1,
+        pageSize: 9999
+      }
     }
   },
   mounted() {
-    this.getCustomerList();
-    this.getorderList();
-    this.gettranList();
-    this.getuserList();
+    this.getCustomerList()
+    this.getorderList()
+    this.gettranList()
+    this.getuserList()
   },
   methods: {
     // handleSetLineChartData(type) {
     //   this.$emit('handleSetLineChartData', type)
     // },
     getCustomerList() {
-      get('/customer/pageQuery',this.listQuery).then((res)=>{
+      get('/customer/pageQuery', this.listQuery).then((res) => {
         this.customSum = res.data.total
       })
     },
     getuserList() {
-      get('/user/pageQuery',this.listQuery).then((res)=>{
+      get('/user/pageQuery', this.listQuery).then((res) => {
         this.userSum = res.data.total
       })
     },
-    getorderList(){
-      get('list/pageQuery',this.listQuery).then((res)=>{
-            this.orderSum=res.data.total;
-          })
+    getorderList() {
+      get('list/pageQuery', this.listQuery).then((res) => {
+        this.orderSum = res.data.total
+      })
     },
-    gettranList(){
-      get('trans/pageQuery',this.listQuery).then((res)=>{
-            this.tranSum=res.data.total;
-          })
+    gettranList() {
+      get('trans/pageQuery', this.listQuery).then((res) => {
+        this.tranSum = res.data.total
+      })
     }
 
   }

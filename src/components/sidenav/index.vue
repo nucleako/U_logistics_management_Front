@@ -1,20 +1,20 @@
 <template>
-    <div id="Sidenav">
-        <div class="fix_nav">
-          <div class="fix_nav_item"><h1><a href="#"></a></h1></div>
-          <div class="fix_nav_item"><h1><a href="#"></a></h1></div>
-          <div class="fix_nav_item"><h1><a href="#"></a></h1></div>
-        </div>
+  <div id="Sidenav">
+    <div class="fix_nav">
+      <div class="fix_nav_item"><h1><a href="#" /></h1></div>
+      <div class="fix_nav_item"><h1><a href="#" /></h1></div>
+      <div class="fix_nav_item"><h1><a href="#" /></h1></div>
     </div>
-      </template>
-      
-      <script>
-        export default{
-          components:{
-            
-          }
-        }
-      </script>
+  </div>
+</template>
+
+<script>
+export default {
+  components: {
+
+  }
+}
+</script>
       <style>
         *{
           margin: 0;
@@ -22,7 +22,7 @@
         }
         a{
           text-decoration: none;
-      
+
         }
         .row{
           width: 1140px;
@@ -59,4 +59,3 @@
           left: 2px;
         }}
       </style>
-      

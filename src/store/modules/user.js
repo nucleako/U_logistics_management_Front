@@ -12,21 +12,21 @@ const state = {
   introduction: '',
   roles: [],
   // 拿到token的时候把整个对象给user_data
-  user_data:null,
+  user_data: null
 }
 
 const mutations = {
   SET_TOKEN(state, token) {
-    state.token = token;
-    state.isLogin = true;
-    state.expiredAt = new Date().getTime() + 3600 * 1000; // 过期时间为1小时
-    window.localStorage.setItem('token', token); // 将Token信息存储在localStorage中
+    state.token = token
+    state.isLogin = true
+    state.expiredAt = new Date().getTime() + 3600 * 1000 // 过期时间为1小时
+    window.localStorage.setItem('token', token) // 将Token信息存储在localStorage中
   },
   REMOVE_TOKEN(state) {
-    state.token = null;
-    state.isLogin = false;
-    state.expiredAt = 0;
-    window.localStorage.removeItem('token'); // 将Token信息从localStorage中删除
+    state.token = null
+    state.isLogin = false
+    state.expiredAt = 0
+    window.localStorage.removeItem('token') // 将Token信息从localStorage中删除
   },
 
   SET_INTRODUCTION: (state, introduction) => {
@@ -50,7 +50,7 @@ const mutations = {
 const actions = {
   // user login  this.$store.dispatch('user/login', this.loginForm)
   login({ commit }, userInfo) {
-    const { username, password } = userInfo //解构用户名和密码
+    const { username, password } = userInfo // 解构用户名和密码
     return new Promise((resolve, reject) => {
       // api中的login方法
       login({ username: username.trim(), password: password }).then(response => {
@@ -64,7 +64,7 @@ const actions = {
   },
 
   logout({ commit }) {
-    commit('REMOVE_TOKEN');
+    commit('REMOVE_TOKEN')
   },
 
   // 获取用户身份信息（头像的设置，token设置）
@@ -76,18 +76,18 @@ const actions = {
         if (!data) {
           reject('Verification failed, please Login again.')
         }
-        console.log(data);
+        console.log(data)
         // 将返回的用户的身份数据，设置到项目的各个地方
-        const { roles, username, avatar, } = data
-        console.log('store user,roles=',roles);
+        const { roles, username, avatar } = data
+        console.log('store user,roles=', roles)
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
-        commit('SET_USER_INFO', data)//user_data
-        commit('SET_ROLES', roles)//权限
-        commit('SET_NAME', username)//用户名
-        commit('SET_AVATAR', avatar)//头像
+        commit('SET_USER_INFO', data)// user_data
+        commit('SET_ROLES', roles)// 权限
+        commit('SET_NAME', username)// 用户名
+        commit('SET_AVATAR', avatar)// 头像
         resolve(data)
       }).catch(error => {
         reject(error)

@@ -6,7 +6,7 @@
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 import resize from './mixins/resize'
-import {get,post} from '../../../../utils/request'
+import { get, post } from '../../../../utils/request'
 const animationDuration = 6000
 
 export default {
@@ -24,11 +24,16 @@ export default {
       type: String,
       default: '300px'
     },
-    xlist:{
-      type:[Array]
+    xlist: {
+      type: [Array]
     },
-    ylist:{
-      type:[Array]
+    ylist: {
+      type: [Array]
+    }
+  },
+  data() {
+    return {
+      chart: null
     }
   },
   watch: {
@@ -36,17 +41,12 @@ export default {
       handler(val) {
         this.initChart()
       },
-      deep: true,
+      deep: true
     },
     ylist: {
       handler(val) {
       },
-      deep: true,
-    }
-  },
-  data() {
-    return {
-      chart: null,
+      deep: true
     }
   },
   // mounted() {
@@ -77,7 +77,7 @@ export default {
           containLabel: true
         },
         xAxis: [{
-          name:'ID',
+          name: 'ID',
           type: 'category',
           data: this.xlist,
           axisTick: {
@@ -85,42 +85,42 @@ export default {
           }
         }],
         yAxis: [{
-          name:'账单收益(元)',
+          name: '账单收益(元)',
           type: 'value',
           axisTick: {
             show: false
           },
           axisLabel: {
-                textStyle: {
-                  fontSize: "18",
-                },
-              },
+            textStyle: {
+              fontSize: '18'
+            }
+          }
         }],
         series: [{
-          name:'十佳收益',
+          name: '十佳收益',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
-          data:this.ylist,
+          data: this.ylist,
           animationDuration,
           itemStyle: {
-              normal: {
-                label: {
-                  formatter: "{c}",
-                  show: true,
-                  position: "top",
-                  textStyle: {
-                    fontWeight: "bolder",
-                    fontSize: "12",
-                    color: "#57b2de"
-                  }
+            normal: {
+              label: {
+                formatter: '{c}',
+                show: true,
+                position: 'top',
+                textStyle: {
+                  fontWeight: 'bolder',
+                  fontSize: '12',
+                  color: '#57b2de'
                 }
               }
             }
+          }
         }]
 
       })
-    },
+    }
 
   }
 }

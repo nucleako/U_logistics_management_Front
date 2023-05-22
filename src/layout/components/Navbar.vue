@@ -76,7 +76,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
-     window.localStorage.setItem('token', null); // 将Token信息存储在localStorage中
+      window.localStorage.setItem('token', null) // 将Token信息存储在localStorage中
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }

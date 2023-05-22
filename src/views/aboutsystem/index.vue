@@ -1,42 +1,41 @@
 <template>
   <div style="height: 1400px;">
-    <div class=top>
+    <div class="top">
       <systemmap />
     </div>
 
-      <div class="us-wrapper">
-        <p class="us_title" style="padding-top: 90px;">
-                联系我们<span class="bline"></span>
-        </p>
-        <ul class="us-contact">
-            <li>
-                <h1>服务热线</h1>
-                <p>13096951181</p>
-            </li>
-            <li>
-                <h1>客服邮箱</h1>
-                <p>NUCLEAKO@GMAIL.COM</p>
-            </li>
-            <li>
-                <h1>公司地址</h1>
-                <p>甘肃：甘肃省兰州市安宁区银滩路街道营门村1号<br></p>
-            </li>
-        </ul>
+    <div class="us-wrapper">
+      <p class="us_title" style="padding-top: 90px;">
+        联系我们<span class="bline" />
+      </p>
+      <ul class="us-contact">
+        <li>
+          <h1>服务热线</h1>
+          <p>13096951181</p>
+        </li>
+        <li>
+          <h1>客服邮箱</h1>
+          <p>NUCLEAKO@GMAIL.COM</p>
+        </li>
+        <li>
+          <h1>公司地址</h1>
+          <p>甘肃：甘肃省兰州市安宁区银滩路街道营门村1号<br></p>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 <script>
 import systemmap from './systemmap.vue'
 export default {
-  name: 'aboutsystem',
-  components: { systemmap},
-  data(){
-    return{}
+  name: 'Aboutsystem',
+  components: { systemmap },
+  data() {
+    return {}
   },
-  methods:{}
-  }
+  methods: {}
+}
 </script>
-
 
 <style>
 .el-carousel__item h3 {

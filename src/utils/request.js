@@ -48,7 +48,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // if the custom code is not 20000, it is judged as an error.
-      return res
+    return res
   },
   error => {
     console.log('err' + error) // for debug
@@ -64,49 +64,28 @@ service.interceptors.response.use(
 /**
   get方式请求
 */
-export function get (url, params) {
+export function get(url, params) {
   return service({
     method: 'get',
     url,
     params, // get 请求时带的参数
     timeout: 10000,
     headers: {
-      'X-Requested-With': 'XMLHttpRequest',
+      'X-Requested-With': 'XMLHttpRequest'
       // 'Authorization': $store.getters.token
     }
   })
 }
 
-
 /**
  * 提交post请求 发送的数据为查询字符串，key=val&key=val
 */
-export function post(url,data){
+export function post(url, data) {
   return service({
-    method:"post",
+    method: 'post',
     url,
-    data:qs.stringify(data),
-    timeout:10000,
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    }
-  })
-}
-
-
-/**
- * 提交post请求 ,查询字符串，对象中嵌套数组的格式
- * {user_id:'1',
- * order_info:[{id:'1',name:'111'},{id:'2',name:'222'}]}
- * user_id=1&order_info[0].id=1&order_info[0].name=111&order_info[1].id=2&order_info[1].name=222
-*/
-export function post_obj_array(url,data){
-  return service({
-    method:"post",
-    url,
-    data:qs.stringify(data,{allowDots:true}),
-    timeout:10000,
+    data: qs.stringify(data),
+    timeout: 10000,
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -114,18 +93,36 @@ export function post_obj_array(url,data){
   })
 }
 
+/**
+ * 提交post请求 ,查询字符串，对象中嵌套数组的格式
+ * {user_id:'1',
+ * order_info:[{id:'1',name:'111'},{id:'2',name:'222'}]}
+ * user_id=1&order_info[0].id=1&order_info[0].name=111&order_info[1].id=2&order_info[1].name=222
+*/
+export function post_obj_array(url, data) {
+  return service({
+    method: 'post',
+    url,
+    data: qs.stringify(data, { allowDots: true }),
+    timeout: 10000,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+  })
+}
 
 /**
  * 提交post请求 发送的数据为查询字符串，当参数为数组的时候适用该方法
  * qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'repeat' })
  'a=b&a=c'
 */
-export function post_array(url,data){
+export function post_array(url, data) {
   return service({
-    method:"post",
+    method: 'post',
     url,
-    data:qs.stringify(data,{arrayFormat:"repeat"}),
-    timeout:10000,
+    data: qs.stringify(data, { arrayFormat: 'repeat' }),
+    timeout: 10000,
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -135,12 +132,12 @@ export function post_array(url,data){
 /**
  * 提交post请求 发送的数据为json字符串
 */
-export function post_json(url,data){
+export function post_json(url, data) {
   return service({
-    method:"post",
+    method: 'post',
     url,
     data,
-    timeout:10000
+    timeout: 10000
   })
 }
 export default service
