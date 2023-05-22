@@ -38,34 +38,29 @@ export default {
   },
   methods: {
     getBill() {
-          get('bill/pageQuery',this.listQuery).then((res)=>{
-          var list1=res.data.list.map(v=>{
-            if(v.state===1){
-              return v.price
-            }
-          });
-          var list2=[]
-          list2=list1.filter(v=>v!=undefined)
-          list2.sort((a,b)=>{return b-a})
-          this.list=list2.slice(0,10)
-          var list3=[];
-          list3=res.data.list.map(v=>{
-            if(v.state===1 && this.list.includes(v.price)){
-              return {
-                id:v.id,
-                price:v.price
-              }
-            }
-          })
-          list3=list3.filter(v=>v!=undefined)
-          list3.sort((a,b)=>{
-            return b.price-a.price
-          });
-          this.xlist=list3.map(v=>v.id)
-          this.ylist=list3.map(v=>v.price);
-          console.log('1111111111111',this.xlist);
-          console.log('22222222222222',this.ylist);
-          })
+      get('bill/pageQuery', this.listQuery).then((res) => {
+        // 提取满足条件的价格列表
+        const priceList = res.data.list
+          .filter(v => v.state === 1)
+          .map(v => v.price)
+          .filter(price => price !== undefined);
+
+        // 对价格列表进行排序并截取前十个
+        this.list = priceList.sort((a, b) => b - a).slice(0, 10);
+
+        // 获取满足条件且价格在前十个中的数据，并按价格降序排序
+        const selectedData = res.data.list
+          .filter(v => v.state === 1 && this.list.includes(v.price))
+          .map(v => ({ id: v.id, price: v.price }))
+          .sort((a, b) => b.price - a.price);
+
+        // 提取 id 列表和价格列表
+        this.xlist = selectedData.map(v => v.id);
+        this.ylist = selectedData.map(v => v.price);
+
+        console.log('ID 列表:', this.xlist);
+        console.log('价格列表:', this.ylist);
+      });
     }
   }
 }

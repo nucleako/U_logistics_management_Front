@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/article'
 
 export default {
   name: 'SelectExcel',
@@ -66,13 +65,6 @@ export default {
     this.fetchData()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
-    },
     handleSelectionChange(val) {
       this.multipleSelection = val
     },

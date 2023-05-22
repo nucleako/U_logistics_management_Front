@@ -77,6 +77,7 @@ export default {
           containLabel: true
         },
         xAxis: [{
+          name:'ID',
           type: 'category',
           data: this.xlist,
           axisTick: {

@@ -11,11 +11,11 @@
         <ul class="us-contact">
             <li>
                 <h1>服务热线</h1>
-                <p>18893785063</p>
+                <p>13096951181</p>
             </li>
             <li>
                 <h1>客服邮箱</h1>
-                <p>3272684503@qq.com</p>
+                <p>NUCLEAKO@GMAIL.COM</p>
             </li>
             <li>
                 <h1>公司地址</h1>
@@ -98,7 +98,7 @@ export default {
 .us_title {
   font-size: 32px;
   font-weight: 700px;
-  color: #33333;
+  color: #333333;
   text-align: center;
   position: relative;
 }

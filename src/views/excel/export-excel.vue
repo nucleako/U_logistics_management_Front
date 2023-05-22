@@ -5,7 +5,7 @@
       <!-- <FilenameOption v-model="filename" /> -->
       <!-- <AutoWidthOption v-model="autoWidth" /> -->
       <!-- <BookTypeOption v-model="bookType" /> -->
-      <el-button :loading="downloadLoading" style="margin:0 0 20px 20px;" type="primary" icon="el-icon-document" @click="handleDownload">
+      <el-button :loading="downloadLoading" style="margin:0 0 0 20px;" type="primary" icon="el-icon-document" @click="handleDownload">
         导出 Excel
       </el-button>
     </div>
@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/article'
 import { parseTime } from '@/utils'
 // options components
 import FilenameOption from './components/FilenameOption'
@@ -86,10 +85,6 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      // fetchList().then(response => {
-      //   this.list = response.data.items
-      //   this.listLoading = false
-      // })
           get('bill/pageQuery',this.pageQuery).then((res)=>{
             this.list=res.data.list.map(v=>{
               return{

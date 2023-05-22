@@ -103,9 +103,7 @@
 <script>
 import {get,post,post_json} from '../../utils/request'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import permission from '@/store/modules/permission'
 import { RegionSelects } from 'v-region'
-import { mapGetters } from 'vuex'
 import exportExcel from '../excel/export-excel.vue'
 import moment from 'moment'
 // v-permission=['admin']
