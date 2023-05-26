@@ -108,7 +108,7 @@
 <script>
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { get, post, post_json } from '../../utils/request'
+import { get, post } from '../../utils/request'
 // const calendarTypeOptions = [
 //   { key: 'CN', display_name: 'China' },
 //   { key: 'US', display_name: 'USA' },
@@ -122,168 +122,168 @@ import { get, post, post_json } from '../../utils/request'
 //   return acc
 // }, {})
 export default {
-  name: 'ComplexTable',
-  components: { Pagination },
-  data() {
-    return {
-      tableKey: 0,
-      list: null,
-      total: 0,
-      listLoading: true,
-      listQuery: {
-        page: 1,
-        pageSize: 10
-      },
-      dialogPvVisible: false,
-      id: undefined,
-      temp: {
-        id: undefined
-      },
-      dialogFormVisible: false,
-      dialogStatus: '',
-      textMap: {
-        update: 'Edit',
-        create: 'Create'
-      },
-      rules: {
-        username: [{ required: true, message: 'title is required', trigger: 'blur' }]
-      },
-      formDisable: false
-    }
-  },
-  created() {
-    this.getCustomerList()
-  },
-  methods: {
-    getCustomerList() {
-      this.listLoading = true
-      get('/customer/pageQuery', this.listQuery).then((res) => {
-        this.list = res.data.list
-        this.total = res.data.total
-        this.listLoading = false
-        this.id = undefined
-      })
-    },
-    handleFilter() {
-      get('customer/findCustomerById', { id: this.id }).then((res) => {
-        this.list = res.data
-        this.total = res.data.length
-      })
-    },
-    handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作Success',
-        type: 'success'
-      })
-      row.status = status
-    },
-    sortChange(data) {
-      const { prop, order } = data
-      if (prop === 'id') {
-        this.sortByID(order)
-      }
-    },
-    sortByID(order) {
-      if (order === 'ascending') {
-        this.listQuery.sort = '+id'
-      } else {
-        this.listQuery.sort = '-id'
-      }
-      this.handleFilter()
-    },
-    resetTemp() {
-      this.temp = {
-        id: undefined
-      }
-    },
-    handleCreate() {
-      this.formDisable = false
-      this.resetTemp()
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    createData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          post('/customer/saveOrUpdate', this.temp).then((res) => {
-            this.dialogFormVisible = false
-            this.getCustomerList()// 重新更新数据
-            this.$notify({
-              title: 'Success',
-              message: '保存成功！',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
-    handleUpdate(row, action) {
-      if (action === 'see') {
-        this.formDisable = true
-      } else {
-        this.formDisable = false
-      }
-      this.temp = Object.assign({}, row) // copy obj
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    updateData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          post('/customer/saveOrUpdate', this.temp).then((res) => {
-            this.dialogFormVisible = false
-            this.getCustomerList()// 重新更新数据
-            this.$notify({
-              title: 'Success',
-              message: '修改成功！',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
-    handleDelete(id) {
-      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        get('customer/deleteById', { id: id }).then(() => {
-          this.getCustomerList()
-        })
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
-    },
-    formatJson(filterVal) {
-      return this.list.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
-    },
-    getSortClass: function(key) {
-      const sort = this.listQuery.sort
-      return sort === `+${key}` ? 'ascending' : 'descending'
-    }
-  }
+	name: 'ComplexTable',
+	components: { Pagination },
+	data() {
+		return {
+			tableKey: 0,
+			list: null,
+			total: 0,
+			listLoading: true,
+			listQuery: {
+				page: 1,
+				pageSize: 10
+			},
+			dialogPvVisible: false,
+			id: undefined,
+			temp: {
+				id: undefined
+			},
+			dialogFormVisible: false,
+			dialogStatus: '',
+			textMap: {
+				update: 'Edit',
+				create: 'Create'
+			},
+			rules: {
+				username: [{ required: true, message: 'title is required', trigger: 'blur' }]
+			},
+			formDisable: false
+		}
+	},
+	created() {
+		this.getCustomerList()
+	},
+	methods: {
+		getCustomerList() {
+			this.listLoading = true
+			get('/customer/pageQuery', this.listQuery).then((res) => {
+				this.list = res.data.list
+				this.total = res.data.total
+				this.listLoading = false
+				this.id = undefined
+			})
+		},
+		handleFilter() {
+			get('customer/findCustomerById', { id: this.id }).then((res) => {
+				this.list = res.data
+				this.total = res.data.length
+			})
+		},
+		handleModifyStatus(row, status) {
+			this.$message({
+				message: '操作Success',
+				type: 'success'
+			})
+			row.status = status
+		},
+		sortChange(data) {
+			const { prop, order } = data
+			if (prop === 'id') {
+				this.sortByID(order)
+			}
+		},
+		sortByID(order) {
+			if (order === 'ascending') {
+				this.listQuery.sort = '+id'
+			} else {
+				this.listQuery.sort = '-id'
+			}
+			this.handleFilter()
+		},
+		resetTemp() {
+			this.temp = {
+				id: undefined
+			}
+		},
+		handleCreate() {
+			this.formDisable = false
+			this.resetTemp()
+			this.dialogStatus = 'create'
+			this.dialogFormVisible = true
+			this.$nextTick(() => {
+				this.$refs['dataForm'].clearValidate()
+			})
+		},
+		createData() {
+			this.$refs['dataForm'].validate((valid) => {
+				if (valid) {
+					post('/customer/saveOrUpdate', this.temp).then((res) => {
+						this.dialogFormVisible = false
+						this.getCustomerList()// 重新更新数据
+						this.$notify({
+							title: 'Success',
+							message: '保存成功！',
+							type: 'success',
+							duration: 2000
+						})
+					})
+				}
+			})
+		},
+		handleUpdate(row, action) {
+			if (action === 'see') {
+				this.formDisable = true
+			} else {
+				this.formDisable = false
+			}
+			this.temp = Object.assign({}, row) // copy obj
+			this.dialogStatus = 'update'
+			this.dialogFormVisible = true
+			this.$nextTick(() => {
+				this.$refs['dataForm'].clearValidate()
+			})
+		},
+		updateData() {
+			this.$refs['dataForm'].validate((valid) => {
+				if (valid) {
+					post('/customer/saveOrUpdate', this.temp).then((res) => {
+						this.dialogFormVisible = false
+						this.getCustomerList()// 重新更新数据
+						this.$notify({
+							title: 'Success',
+							message: '修改成功！',
+							type: 'success',
+							duration: 2000
+						})
+					})
+				}
+			})
+		},
+		handleDelete(id) {
+			this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				type: 'warning'
+			}).then(() => {
+				get('customer/deleteById', { id: id }).then(() => {
+					this.getCustomerList()
+				})
+				this.$message({
+					type: 'success',
+					message: '删除成功!'
+				})
+			}).catch(() => {
+				this.$message({
+					type: 'info',
+					message: '已取消删除'
+				})
+			})
+		},
+		formatJson(filterVal) {
+			return this.list.map(v => filterVal.map(j => {
+				if (j === 'timestamp') {
+					return parseTime(v[j])
+				} else {
+					return v[j]
+				}
+			}))
+		},
+		getSortClass: function(key) {
+			const sort = this.listQuery.sort
+			return sort === `+${key}` ? 'ascending' : 'descending'
+		}
+	}
 }
 </script>
 <style>

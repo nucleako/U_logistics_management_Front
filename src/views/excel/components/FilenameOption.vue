@@ -7,21 +7,21 @@
 
 <script>
 export default {
-  props: {
-    value: {
-      type: String,
-      default: ''
-    }
-  },
-  computed: {
-    filename: {
-      get() {
-        return this.value
-      },
-      set(val) {
-        this.$emit('input', val)
-      }
-    }
-  }
+	props: {
+		value: {
+			type: String,
+			default: ''
+		}
+	},
+	computed: {
+		filename: {
+			get() {
+				return this.value
+			},
+			set(val) {
+				this.$emit('input', val)
+			}
+		}
+	}
 }
 </script>

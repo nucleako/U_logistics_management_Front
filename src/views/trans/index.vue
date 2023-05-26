@@ -119,182 +119,182 @@
   </div>
 </template>
 <script>
-import { get, post, post_json } from '../../utils/request'
+import { get, post } from '../../utils/request'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { RegionSelects } from 'v-region'
 export default {
-  name: 'ComplexTable',
-  components: { Pagination, RegionSelects },
-  data() {
-    return {
-      tableKey: 0,
-      list: null, // 表格依赖的数据
-      total: 0, // 分页的总数量
-      listLoading: true,
-      listQuery: {
-        page: 1,
-        pageSize: 10
-      },
-      dialogStatus: '',
-      dialogPvVisible: false,
-      id: undefined,
-      tip: true,
-      listId: [],
-      temp: {
-        id: undefined
-      },
-      dialogFormVisible: false,
-      dialogStatus: '',
-      textMap: {
-        update: 'Edit',
-        create: 'Create'
-      },
-      rules: {
-        username: [{ required: true, message: 'title is required', trigger: 'blur' }]
-      },
-      formDisable: false
-    }
-  },
-  // 请求数据
-  created() {
-    this.getTrans()
-  },
-  methods: {
-    getTrans() {
-      // 无数据，转圈开始
-      this.listLoading = true
-      get('trans/pageQuery', this.listQuery).then((res) => {
-        this.list = res.data.list
-        console.log(this.list)
-        this.total = res.data.total
-      })
-      // 数据有，转圈结束
-      this.listLoading = false
-      this.id = undefined
-    },
-    handleFilter() {
-      get('trans/findOneTrans', { id: this.id }).then((res) => {
-        this.list = res.data
-        this.total = res.data.length
-      })
-    },
-    handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作Success',
-        type: 'success'
-      })
-      row.status = status
-    },
-    sortChange(data) {
-      const { prop, order } = data
-      if (prop === 'id') {
-        this.sortByID(order)
-      }
-    },
-    sortByID(order) {
-      if (order === 'ascending') {
-        this.listQuery.sort = '+id'
-      } else {
-        this.listQuery.sort = '-id'
-      }
-      this.handleFilter()
-    },
-    resetTemp() {
-      this.temp = {
-        id: undefined
-      }
-    },
-    handleCreate() {
-      this.formDisable = false
-      this.resetTemp()
-      this.dialogStatus = '新增运单'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    createData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          post('/trans/saveOrUpdate', this.temp).then((res) => {
-            this.dialogFormVisible = false
-            // 重新更新数据
-            this.getTrans()
-            this.$notify({
-              title: 'Success',
-              message: '保存成功',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
-    handleUpdate(row, action) {
-      if (action === 'see') {
-        this.formDisable = true
-      } else {
-        this.formDisable = false
-      }
-      this.temp = Object.assign({}, row) // copy obj
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    updateData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          const tempData = Object.assign({}, this.temp)
-          post('trans/saveOrUpdateTrans', this.temp).then((res) => {
-            this.dialogFormVisible = false
-            // 重新更新数据
-            this.getList()
-            this.$notify({
-              title: 'Success',
-              message: '保存成功',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
-    handleDelete(id) {
-      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        get('trans/deleteTrans', { id: id }).then(() => {
-          this.getTrans()
-        })
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
-    },
-    formatJson(filterVal) {
-      return this.list.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
-    },
-    getSortClass: function(key) {
-      const sort = this.listQuery.sort
-      return sort === `+${key}` ? 'ascending' : 'descending'
-    }
-  }
+	name: 'ComplexTable',
+	components: { Pagination, RegionSelects },
+	data() {
+		return {
+			tableKey: 0,
+			list: null, // 表格依赖的数据
+			total: 0, // 分页的总数量
+			listLoading: true,
+			listQuery: {
+				page: 1,
+				pageSize: 10
+			},
+			dialogStatus: '',
+			dialogPvVisible: false,
+			id: undefined,
+			tip: true,
+			listId: [],
+			temp: {
+				id: undefined
+			},
+			dialogFormVisible: false,
+			dialogStatus: '',
+			textMap: {
+				update: 'Edit',
+				create: 'Create'
+			},
+			rules: {
+				username: [{ required: true, message: 'title is required', trigger: 'blur' }]
+			},
+			formDisable: false
+		}
+	},
+	// 请求数据
+	created() {
+		this.getTrans()
+	},
+	methods: {
+		getTrans() {
+			// 无数据，转圈开始
+			this.listLoading = true
+			get('trans/pageQuery', this.listQuery).then((res) => {
+				this.list = res.data.list
+				console.log(this.list)
+				this.total = res.data.total
+			})
+			// 数据有，转圈结束
+			this.listLoading = false
+			this.id = undefined
+		},
+		handleFilter() {
+			get('trans/findOneTrans', { id: this.id }).then((res) => {
+				this.list = res.data
+				this.total = res.data.length
+			})
+		},
+		handleModifyStatus(row, status) {
+			this.$message({
+				message: '操作Success',
+				type: 'success'
+			})
+			row.status = status
+		},
+		sortChange(data) {
+			const { prop, order } = data
+			if (prop === 'id') {
+				this.sortByID(order)
+			}
+		},
+		sortByID(order) {
+			if (order === 'ascending') {
+				this.listQuery.sort = '+id'
+			} else {
+				this.listQuery.sort = '-id'
+			}
+			this.handleFilter()
+		},
+		resetTemp() {
+			this.temp = {
+				id: undefined
+			}
+		},
+		handleCreate() {
+			this.formDisable = false
+			this.resetTemp()
+			this.dialogStatus = '新增运单'
+			this.dialogFormVisible = true
+			this.$nextTick(() => {
+				this.$refs['dataForm'].clearValidate()
+			})
+		},
+		createData() {
+			this.$refs['dataForm'].validate((valid) => {
+				if (valid) {
+					post('/trans/saveOrUpdate', this.temp).then((res) => {
+						this.dialogFormVisible = false
+						// 重新更新数据
+						this.getTrans()
+						this.$notify({
+							title: 'Success',
+							message: '保存成功',
+							type: 'success',
+							duration: 2000
+						})
+					})
+				}
+			})
+		},
+		handleUpdate(row, action) {
+			if (action === 'see') {
+				this.formDisable = true
+			} else {
+				this.formDisable = false
+			}
+			this.temp = Object.assign({}, row) // copy obj
+			this.dialogStatus = 'update'
+			this.dialogFormVisible = true
+			this.$nextTick(() => {
+				this.$refs['dataForm'].clearValidate()
+			})
+		},
+		updateData() {
+			this.$refs['dataForm'].validate((valid) => {
+				if (valid) {
+					const tempData = Object.assign({}, this.temp)
+					post('trans/saveOrUpdateTrans', this.temp).then((res) => {
+						this.dialogFormVisible = false
+						// 重新更新数据
+						this.getList()
+						this.$notify({
+							title: 'Success',
+							message: '保存成功',
+							type: 'success',
+							duration: 2000
+						})
+					})
+				}
+			})
+		},
+		handleDelete(id) {
+			this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				type: 'warning'
+			}).then(() => {
+				get('trans/deleteTrans', { id: id }).then(() => {
+					this.getTrans()
+				})
+				this.$message({
+					type: 'success',
+					message: '删除成功!'
+				})
+			}).catch(() => {
+				this.$message({
+					type: 'info',
+					message: '已取消删除'
+				})
+			})
+		},
+		formatJson(filterVal) {
+			return this.list.map(v => filterVal.map(j => {
+				if (j === 'timestamp') {
+					return parseTime(v[j])
+				} else {
+					return v[j]
+				}
+			}))
+		},
+		getSortClass: function(key) {
+			const sort = this.listQuery.sort
+			return sort === `+${key}` ? 'ascending' : 'descending'
+		}
+	}
 }
 </script>
 <style>

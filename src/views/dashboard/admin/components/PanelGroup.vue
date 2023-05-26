@@ -66,55 +66,55 @@
 <script>
 import { RouterLink } from 'vue-router'
 import CountTo from 'vue-count-to'
-import { get, post, post_json } from '../../../../utils/request'
+import { get, post } from '../../../../utils/request'
 export default {
-  components: {
-    CountTo
-  },
-  data() {
-    return {
-      customSum: undefined,
-      userSum: undefined,
-      orderSum: undefined,
-      tranSum: undefined,
-      listQuery: {
-        page: 1,
-        pageSize: 9999
-      }
-    }
-  },
-  mounted() {
-    this.getCustomerList()
-    this.getorderList()
-    this.gettranList()
-    this.getuserList()
-  },
-  methods: {
-    // handleSetLineChartData(type) {
-    //   this.$emit('handleSetLineChartData', type)
-    // },
-    getCustomerList() {
-      get('/customer/pageQuery', this.listQuery).then((res) => {
-        this.customSum = res.data.total
-      })
-    },
-    getuserList() {
-      get('/user/pageQuery', this.listQuery).then((res) => {
-        this.userSum = res.data.total
-      })
-    },
-    getorderList() {
-      get('list/pageQuery', this.listQuery).then((res) => {
-        this.orderSum = res.data.total
-      })
-    },
-    gettranList() {
-      get('trans/pageQuery', this.listQuery).then((res) => {
-        this.tranSum = res.data.total
-      })
-    }
+	components: {
+		CountTo
+	},
+	data() {
+		return {
+			customSum: undefined,
+			userSum: undefined,
+			orderSum: undefined,
+			tranSum: undefined,
+			listQuery: {
+				page: 1,
+				pageSize: 9999
+			}
+		}
+	},
+	mounted() {
+		this.getCustomerList()
+		this.getorderList()
+		this.gettranList()
+		this.getuserList()
+	},
+	methods: {
+		// handleSetLineChartData(type) {
+		//   this.$emit('handleSetLineChartData', type)
+		// },
+		getCustomerList() {
+			get('/customer/pageQuery', this.listQuery).then((res) => {
+				this.customSum = res.data.total
+			})
+		},
+		getuserList() {
+			get('/user/pageQuery', this.listQuery).then((res) => {
+				this.userSum = res.data.total
+			})
+		},
+		getorderList() {
+			get('list/pageQuery', this.listQuery).then((res) => {
+				this.orderSum = res.data.total
+			})
+		},
+		gettranList() {
+			get('trans/pageQuery', this.listQuery).then((res) => {
+				this.tranSum = res.data.total
+			})
+		}
 
-  }
+	}
 }
 </script>
 

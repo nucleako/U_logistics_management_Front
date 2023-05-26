@@ -56,96 +56,96 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import { get } from '../../utils/request'
 
 export default {
-  name: 'ComplexTable',
-  components: { Pagination },
-  directives: { waves },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        'null': 'danger'
-      }
-      return statusMap[status]
-    },
-    typeFilter(type) {
-      return calendarTypeKeyValue[type]
-    }
-  },
-  data() {
-    return {
-      tableKey: 0,
-      list: null, // 表格依赖的数据
-      total: 0, // 分页的总数量
-      listLoading: true,
-      // 用于该模块请求数据时的参数,分页功能也是依赖这个数据
-      listQuery: {
-        page: 1,
-        pageSize: 9
-      },
-      searchForm: {
-        id: undefined,
-        OrderID: undefined,
-        CarrierId: undefined
-      },
-      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    }
-  },
-  // 请求数据
-  created() {
-    // this.getTrans()
-    this.getTransPageQuery()
-  },
-  methods: {
-    // 请求商品数据的方法
-    // getTrans() {
-    //       // 无数据，转圈开始
-    //       this.listLoading = true
-    //       get('/trans/pageQuery',this.listQuery).then((res)=>{
-    //         // console.log('trans',res);
-    //         this.list=res.data.list
-    //       })
-    //       // 数据有，转圈结束
-    //       this.listLoading = false
-    // },
-    getTransPageQuery() {
-      // 无数据，转圈开始
-      this.listLoading = true
-      get('/trans/pageQuery', this.listQuery).then((res) => {
-        console.log('getTransPageQuery', res)
-        this.list = res.data.list
-        this.total = res.data.list.length
-      })
-      // 数据有，转圈结束
-      this.listLoading = false
-    },
-    getRefresh() {
-      this.getTransPageQuery()
-      this.searchForm.CarrierId = undefined
-      this.searchForm.OrderID = undefined
-      this.searchForm.id = undefined
-    },
-    //   实现检索，每次Input根据属性添加值的时候，且多了一个参数，获取数据的方法会重新调用一次，
-    handleFilter() {
-      try {
-        get('trans/findOneTrans', {
-          id: this.searchForm.id,
-          CarrierId: this.searchForm.CarrierId,
-          OrderID: this.searchForm.OrderID
-        }).then((res) => {
-          this.list = res.data
-        })
-      } catch (error) {
-        console.log(error)
-        console.log('未查询到相关信息！')
-      }
-    },
-    reload() {
-      this.isRouterAlive = false
-      this.$nextTick(() => {
-        this.isRouterAlive = true
-      })
-    }
+	name: 'ComplexTable',
+	components: { Pagination },
+	directives: { waves },
+	filters: {
+		statusFilter(status) {
+			const statusMap = {
+				'null': 'danger'
+			}
+			return statusMap[status]
+		},
+		typeFilter(type) {
+			return calendarTypeKeyValue[type]
+		}
+	},
+	data() {
+		return {
+			tableKey: 0,
+			list: null, // 表格依赖的数据
+			total: 0, // 分页的总数量
+			listLoading: true,
+			// 用于该模块请求数据时的参数,分页功能也是依赖这个数据
+			listQuery: {
+				page: 1,
+				pageSize: 9
+			},
+			searchForm: {
+				id: undefined,
+				OrderID: undefined,
+				CarrierId: undefined
+			},
+			url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+		}
+	},
+	// 请求数据
+	created() {
+		// this.getTrans()
+		this.getTransPageQuery()
+	},
+	methods: {
+		// 请求商品数据的方法
+		// getTrans() {
+		//       // 无数据，转圈开始
+		//       this.listLoading = true
+		//       get('/trans/pageQuery',this.listQuery).then((res)=>{
+		//         // console.log('trans',res);
+		//         this.list=res.data.list
+		//       })
+		//       // 数据有，转圈结束
+		//       this.listLoading = false
+		// },
+		getTransPageQuery() {
+			// 无数据，转圈开始
+			this.listLoading = true
+			get('/trans/pageQuery', this.listQuery).then((res) => {
+				console.log('getTransPageQuery', res)
+				this.list = res.data.list
+				this.total = res.data.list.length
+			})
+			// 数据有，转圈结束
+			this.listLoading = false
+		},
+		getRefresh() {
+			this.getTransPageQuery()
+			this.searchForm.CarrierId = undefined
+			this.searchForm.OrderID = undefined
+			this.searchForm.id = undefined
+		},
+		//   实现检索，每次Input根据属性添加值的时候，且多了一个参数，获取数据的方法会重新调用一次，
+		handleFilter() {
+			try {
+				get('trans/findOneTrans', {
+					id: this.searchForm.id,
+					CarrierId: this.searchForm.CarrierId,
+					OrderID: this.searchForm.OrderID
+				}).then((res) => {
+					this.list = res.data
+				})
+			} catch (error) {
+				console.log(error)
+				console.log('未查询到相关信息！')
+			}
+		},
+		reload() {
+			this.isRouterAlive = false
+			this.$nextTick(() => {
+				this.isRouterAlive = true
+			})
+		}
 
-  }
+	}
 }
 </script>
 <style>

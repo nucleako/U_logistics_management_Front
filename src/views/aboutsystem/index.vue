@@ -28,12 +28,12 @@
 <script>
 import systemmap from './systemmap.vue'
 export default {
-  name: 'Aboutsystem',
-  components: { systemmap },
-  data() {
-    return {}
-  },
-  methods: {}
+	name: 'Aboutsystem',
+	components: { systemmap },
+	data() {
+		return {}
+	},
+	methods: {}
 }
 </script>
 

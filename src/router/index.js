@@ -37,154 +37,154 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
-  { path: '*', redirect: '/404' },
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index')
-      }
-    ]
-  },
-  {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/auth-redirect'),
-    hidden: true
-  },
-  {
-    path: '/404',
-    component: () => import('@/views/error-page/404'),
-    hidden: true
-  },
-  {
-    path: '/401',
-    component: () => import('@/views/error-page/401'),
-    hidden: true
-  },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: '系统首页', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/list',
-    component: Layout,
-    meta: {
-      title: '订单管理',
-      icon: 'el-icon-s-help'
-    },
-    children: [
-      {
-        roles: ['admin', 'editor'],
-        path: 'index',
-        component: () => import('@/views/list/index'),
-        name: 'list',
-        meta: { title: '订单管理', icon: 'list', affix: true }
-      },
-      {
-        path: 'details',
-        component: () => import('@/views/list/details'),
-        name: 'Details',
-        meta: { title: '订单详情', icon: 'edit' }
-      }
-    ]
-  },
-  {
-    path: '/trans',
-    component: Layout,
-    meta: {
-      title: '运单管理',
-      icon: 'el-icon-s-help'
-    },
-    children: [
-      {
-        roles: ['admin', 'editor'],
-        path: 'index',
-        component: () => import('@/views/trans/index'),
-        name: 'Trans',
-        meta: { title: '运单管理', icon: 'list', affix: true }
-      },
-      {
-        path: 'details',
-        component: () => import('@/views/trans/details'),
-        name: 'Details',
-        meta: { title: '运单详情', icon: 'edit' }
-      }
-    ]
-  },
+	{ path: '*', redirect: '/404' },
+	{
+		path: '/redirect',
+		component: Layout,
+		hidden: true,
+		children: [
+			{
+				path: '/redirect/:path(.*)',
+				component: () => import('@/views/redirect/index')
+			}
+		]
+	},
+	{
+		path: '/login',
+		component: () => import('@/views/login/index'),
+		hidden: true
+	},
+	{
+		path: '/auth-redirect',
+		component: () => import('@/views/login/auth-redirect'),
+		hidden: true
+	},
+	{
+		path: '/404',
+		component: () => import('@/views/error-page/404'),
+		hidden: true
+	},
+	{
+		path: '/401',
+		component: () => import('@/views/error-page/401'),
+		hidden: true
+	},
+	{
+		path: '/',
+		component: Layout,
+		redirect: '/dashboard',
+		children: [
+			{
+				path: 'dashboard',
+				component: () => import('@/views/dashboard/index'),
+				name: 'Dashboard',
+				meta: { title: '系统首页', icon: 'dashboard', affix: true }
+			}
+		]
+	},
+	{
+		path: '/list',
+		component: Layout,
+		meta: {
+			title: '订单管理',
+			icon: 'el-icon-s-help'
+		},
+		children: [
+			{
+				roles: ['admin', 'editor'],
+				path: 'index',
+				component: () => import('@/views/list/index'),
+				name: 'list',
+				meta: { title: '订单管理', icon: 'list', affix: true }
+			},
+			{
+				path: 'details',
+				component: () => import('@/views/list/details'),
+				name: 'listDetails',
+				meta: { title: '订单详情', icon: 'edit' }
+			}
+		]
+	},
+	{
+		path: '/trans',
+		component: Layout,
+		meta: {
+			title: '运单管理',
+			icon: 'el-icon-s-help'
+		},
+		children: [
+			{
+				roles: ['admin', 'editor'],
+				path: 'index',
+				component: () => import('@/views/trans/index'),
+				name: 'Trans',
+				meta: { title: '运单管理', icon: 'list', affix: true }
+			},
+			{
+				path: 'details',
+				component: () => import('@/views/trans/details'),
+				name: 'transDetails',
+				meta: { title: '运单详情', icon: 'edit' }
+			}
+		]
+	},
 
-  {
-    path: '/carriers',
-    component: Layout,
-    children: [
-      {
-        roles: ['admin', 'editor'],
-        path: 'index',
-        component: () => import('@/views/carriers/index'),
-        name: 'Carriers',
-        meta: { title: '承运商管理', icon: 'form', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/customer',
-    component: Layout,
-    name: 'customer',
-    meta: {
-      title: '客户管理',
-      icon: 'el-icon-s-help'
-    },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/customer/index'),
-        name: 'Customer',
-        meta: { title: '客户管理', icon: 'edit', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/person',
-    component: Layout,
-    children: [
-      {
-        roles: ['admin', 'editor'],
-        path: 'index',
-        component: () => import('@/views/person/index.vue'),
-        name: 'Person',
-        meta: { title: '个人信息', icon: 'user', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/aboutsystem',
-    component: Layout,
-    children: [
-      {
-        roles: ['admin', 'editor'],
-        path: 'index',
-        component: () => import('@/views/aboutsystem/index'),
-        name: 'Aboutsystem',
-        meta: { title: '关于系统', icon: 'guide', affix: true }
-      }
-    ]
-  }
+	{
+		path: '/carriers',
+		component: Layout,
+		children: [
+			{
+				roles: ['admin', 'editor'],
+				path: 'index',
+				component: () => import('@/views/carriers/index'),
+				name: 'Carriers',
+				meta: { title: '承运商管理', icon: 'form', affix: true }
+			}
+		]
+	},
+	{
+		path: '/customer',
+		component: Layout,
+		name: 'customer',
+		meta: {
+			title: '客户管理',
+			icon: 'el-icon-s-help'
+		},
+		children: [
+			{
+				path: 'index',
+				component: () => import('@/views/customer/index'),
+				name: 'Customer',
+				meta: { title: '客户管理', icon: 'edit', affix: true }
+			}
+		]
+	},
+	{
+		path: '/person',
+		component: Layout,
+		children: [
+			{
+				roles: ['admin', 'editor'],
+				path: 'index',
+				component: () => import('@/views/person/index.vue'),
+				name: 'Person',
+				meta: { title: '个人信息', icon: 'user', affix: true }
+			}
+		]
+	},
+	{
+		path: '/aboutsystem',
+		component: Layout,
+		children: [
+			{
+				roles: ['admin', 'editor'],
+				path: 'index',
+				component: () => import('@/views/aboutsystem/index'),
+				name: 'Aboutsystem',
+				meta: { title: '地图导航', icon: 'guide', affix: true }
+			}
+		]
+	}
 ]
 // 异步路由-权限路由
 // 虽然vue-admin帮我们分出来2部分的路由，但是核心的判断逻辑他没有写
@@ -193,148 +193,148 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  {
-    path: '/bill',
-    component: Layout,
-    name: 'Bill',
-    meta: {
-      title: '财务管理',
-      icon: 'el-icon-s-help',
-      roles: ['admin']
-    },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/bill/index'),
-        name: 'Bill',
-        meta: {
-          title: '对账单管理',
-          icon: 'edit',
-          affix: true
-        }
-      }
-    ]
-  },
-  {
-    path: '/user',
-    component: Layout,
-    name: 'User',
-    meta: {
-      title: '角色权限',
-      icon: 'exit-fullscreen',
-      roles: ['admin']
-    },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/user/index'),
-        name: 'userIndex',
-        meta: { title: '用户管理', icon: 'edit' }
-      }
-    ]
-  },
-  {
-    path: '/permission',
-    component: Layout,
-    redirect: '/permission/page',
-    alwaysShow: true, // will always show the root menu
-    name: 'Permission',
-    hidden: true,
-    meta: {
-      title: 'Permission',
-      icon: 'lock',
-      roles: ['admin'] // you can set roles in root nav
-    },
-    children: [
-      {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
-        name: 'PagePermission',
-        meta: {
-          title: 'Page Permission',
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
-      },
+	{
+		path: '/bill',
+		component: Layout,
+		name: 'Bill',
+		meta: {
+			title: '财务管理',
+			icon: 'el-icon-s-help',
+			roles: ['admin']
+		},
+		children: [
+			{
+				path: 'index',
+				component: () => import('@/views/bill/index'),
+				name: 'Bill1',
+				meta: {
+					title: '对账单管理',
+					icon: 'edit',
+					affix: true
+				}
+			}
+		]
+	},
+	{
+		path: '/user',
+		component: Layout,
+		name: 'User',
+		meta: {
+			title: '角色权限',
+			icon: 'exit-fullscreen',
+			roles: ['admin']
+		},
+		children: [
+			{
+				path: 'index',
+				component: () => import('@/views/user/index'),
+				name: 'userIndex',
+				meta: { title: '用户管理', icon: 'edit' }
+			}
+		]
+	},
+	{
+		path: '/permission',
+		component: Layout,
+		redirect: '/permission/page',
+		alwaysShow: true, // will always show the root menu
+		name: 'Permission',
+		hidden: true,
+		meta: {
+			title: 'Permission',
+			icon: 'lock',
+			roles: ['admin'] // you can set roles in root nav
+		},
+		children: [
+			{
+				path: 'page',
+				component: () => import('@/views/permission/page'),
+				name: 'PagePermission',
+				meta: {
+					title: 'Page Permission',
+					roles: ['admin'] // or you can only set roles in sub nav
+				}
+			},
 
-      {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
-        meta: {
-          title: 'Directive Permission'
-          // if do not set roles, means: this page does not require permission
-        }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
-        meta: {
-          title: 'Role Permission',
-          roles: ['admin']
-        }
-      }
-    ]
-  },
+			{
+				path: 'directive',
+				component: () => import('@/views/permission/directive'),
+				name: 'DirectivePermission',
+				meta: {
+					title: 'Directive Permission'
+					// if do not set roles, means: this page does not require permission
+				}
+			},
+			{
+				path: 'role',
+				component: () => import('@/views/permission/role'),
+				name: 'RolePermission',
+				meta: {
+					title: 'Role Permission',
+					roles: ['admin']
+				}
+			}
+		]
+	},
 
-  // /** when your routing map is too long, you can split it into small modules **/
-  // componentsRouter,
-  // chartsRouter,
-  // nestedRouter,
-  // tableRouter,
+	// /** when your routing map is too long, you can split it into small modules **/
+	// componentsRouter,
+	// chartsRouter,
+	// nestedRouter,
+	// tableRouter,
 
-  {
-    path: '/error',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'ErrorPages',
-    meta: {
-      title: 'Error Pages',
-      icon: '404'
-    },
-    children: [
-      {
-        path: '401',
-        component: () => import('@/views/error-page/401'),
-        name: 'Page401',
-        meta: { title: '401', noCache: true }
-      },
-      {
-        path: '404',
-        component: () => import('@/views/error-page/404'),
-        name: 'Page404',
-        meta: { title: '404', noCache: true }
-      }
-    ]
-  }
+	{
+		path: '/error',
+		component: Layout,
+		redirect: 'noRedirect',
+		name: 'ErrorPages',
+		meta: {
+			title: 'Error Pages',
+			icon: '404'
+		},
+		children: [
+			{
+				path: '401',
+				component: () => import('@/views/error-page/401'),
+				name: 'Page401',
+				meta: { title: '401', noCache: true }
+			},
+			{
+				path: '404',
+				component: () => import('@/views/error-page/404'),
+				name: 'Page404',
+				meta: { title: '404', noCache: true }
+			}
+		]
+	}
 
-  // {
-  //   path: '/error-log',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'log',
-  //       component: () => import('@/views/error-log/index'),
-  //       name: 'ErrorLog',
-  //       meta: { title: 'Error Log', icon: 'bug' }
-  //     }
-  //   ]
-  // },
+	// {
+	//   path: '/error-log',
+	//   component: Layout,
+	//   children: [
+	//     {
+	//       path: 'log',
+	//       component: () => import('@/views/error-log/index'),
+	//       name: 'ErrorLog',
+	//       meta: { title: 'Error Log', icon: 'bug' }
+	//     }
+	//   ]
+	// },
 
-  // 404 page must be placed at the end !!!
+	// 404 page must be placed at the end !!!
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+	// mode: 'history', // require service support
+	scrollBehavior: () => ({ y: 0 }),
+	routes: constantRoutes
 })
 
 const router = createRouter()
 
 export function resetRouter() {
-  const newRouter = createRouter()
-  router.matcher = newRouter.matcher // reset router
+	const newRouter = createRouter()
+	router.matcher = newRouter.matcher // reset router
 }
 
 export default router

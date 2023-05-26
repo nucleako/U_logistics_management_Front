@@ -109,219 +109,219 @@ import moment from 'moment'
 // v-permission=['admin']
 // import permission from '@/directive/permission/index.js'
 export default {
-  name: 'ComplexTable',
-  components: { Pagination, RegionSelects, exportExcel },
-  // directives: { permission },
-  filters: {
-    statusFilter(stauts) {
-      const statusMap = {
-        '1': 'success',
-        '0': 'danger'
-      }
-      return statusMap[stauts]
-    }
-  },
-  data() {
-    return {
-      tableKey: 0,
-      list: null, // 表格依赖的数据
-      total: 0, // 分页的总数量
-      listLoading: true,
-      listQuery: {
-        page: 1,
-        pageSize: 10
-      },
-      dialogStatus: '',
-      dialogPvVisible: false,
-      // roles:'',
-      billVisiable: false,
-      id: undefined,
-      temp: {
-        id: undefined
-      },
-      dialogFormVisible: false,
-      dialogStatus: '',
-      textMap: {
-        update: 'Edit',
-        create: 'Create'
-      },
-      rules: {
-        username: [{ required: true, message: 'title is required', trigger: 'blur' }]
-      },
-      formDisable: false
-    }
-  },
-  // computed: {
-  //   ...mapGetters([
-  //     'roles'
-  //   ])
-  // },
-  computed: {
-    getDate() {
-      return function(time) {
-        const dt = new Date(time)
-        // Date.parse() 返回1970年1月1日午夜到指定日期（字符串）的毫秒数
-        // 将获得的毫秒数加8个小时的毫秒数
-        const ts = Date.parse(dt) + 8 * 3600 * 1000
-        // 将处理的毫秒数转为ios格式字符串，并进行格式化处理
-        const d = new Date(ts).toISOString().replace(/T/g, ' ').slice(0, 19)
-        // 输出类似 2019-08-02 18:58:56
-        return d
-      }
-    }
-  },
-  // 请求数据
-  created() {
-    this.getBill()
-  },
-  methods: {
-    getBill() {
-      // 无数据，转圈开始
-      this.listLoading = true
-      get('bill/pageQuery', this.listQuery).then((res) => {
-        this.list = res.data.list.map(v => {
-          return {
-            ...v,
-            date: this.getDate(v.date) }
-        })
-        this.total = res.data.total
-        console.log('billllllllll', res)
-      })
-      // 数据有，转圈结束
-      this.listLoading = false
-      // console.log('1111111',this.roles);
-    },
-    getRefresh() {
-      this.getBill()
-      this.id = undefined
-    },
-    handleFilter() {
-      get('bill/findBillById', { id: this.id }).then((res) => {
-        this.list = res.data
-        this.total = res.data.length
-      })
-    },
-    handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作Success',
-        type: 'success'
-      })
-      row.status = status
-    },
-    sortChange(data) {
-      const { prop, order } = data
-      if (prop === 'id') {
-        this.sortByID(order)
-      }
-    },
-    sortByID(order) {
-      if (order === 'ascending') {
-        this.listQuery.sort = '+id'
-      } else {
-        this.listQuery.sort = '-id'
-      }
-      this.handleFilter()
-    },
-    resetTemp() {
-      this.temp = {
-        id: undefined
-      }
-    },
-    handleCreate() {
-      this.formDisable = false
-      this.resetTemp()
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    createData() {
-      this.temp.date = moment(this.temp.date).format('YYYY-MM-DD HH:mm:ss')
-      this.temp.state = parseInt(this.temp.state),
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          post('bill/saveOrUpdate', this.temp).then((res) => {
-            this.dialogFormVisible = false
-            // 重新更新数据
-            this.getBill()
-            this.$notify({
-              title: 'Success',
-              message: '保存成功',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
-    handleUpdate(row, action) {
-      if (action === 'see') {
-        this.formDisable = true
-      } else {
-        this.formDisable = false
-      }
-      this.temp = Object.assign({}, row) // copy obj
-      this.temp.state = this.temp.state.toString(2)
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    updateData() {
-      this.temp.date = moment(this.temp.date).format('YYYY-MM-DD HH:mm:ss')
-      this.temp.state = parseInt(this.temp.state)
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          post('bill/saveOrUpdate', this.temp).then((res) => {
-            this.dialogFormVisible = false
-            // 重新更新数据
-            this.getBill()
-            this.$notify({
-              title: 'Success',
-              message: '保存成功',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
-    handleDelete(id) {
-      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        get('bill/deleteById', { id: id }).then(() => {
-          this.getBill()
-        })
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
-    },
-    formatJson(filterVal) {
-      return this.list.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
-    },
-    getSortClass: function(key) {
-      const sort = this.listQuery.sort
-      return sort === `+${key}` ? 'ascending' : 'descending'
-    }
-  }
+	name: 'ComplexTable',
+	components: { Pagination, RegionSelects, exportExcel },
+	// directives: { permission },
+	filters: {
+		statusFilter(stauts) {
+			const statusMap = {
+				'1': 'success',
+				'0': 'danger'
+			}
+			return statusMap[stauts]
+		}
+	},
+	data() {
+		return {
+			tableKey: 0,
+			list: null, // 表格依赖的数据
+			total: 0, // 分页的总数量
+			listLoading: true,
+			listQuery: {
+				page: 1,
+				pageSize: 10
+			},
+			dialogStatus: '',
+			dialogPvVisible: false,
+			// roles:'',
+			billVisiable: false,
+			id: undefined,
+			temp: {
+				id: undefined
+			},
+			dialogFormVisible: false,
+			dialogStatus: '',
+			textMap: {
+				update: 'Edit',
+				create: 'Create'
+			},
+			rules: {
+				username: [{ required: true, message: 'title is required', trigger: 'blur' }]
+			},
+			formDisable: false
+		}
+	},
+	// computed: {
+	//   ...mapGetters([
+	//     'roles'
+	//   ])
+	// },
+	computed: {
+		getDate() {
+			return function(time) {
+				const dt = new Date(time)
+				// Date.parse() 返回1970年1月1日午夜到指定日期（字符串）的毫秒数
+				// 将获得的毫秒数加8个小时的毫秒数
+				const ts = Date.parse(dt) + 8 * 3600 * 1000
+				// 将处理的毫秒数转为ios格式字符串，并进行格式化处理
+				const d = new Date(ts).toISOString().replace(/T/g, ' ').slice(0, 19)
+				// 输出类似 2019-08-02 18:58:56
+				return d
+			}
+		}
+	},
+	// 请求数据
+	created() {
+		this.getBill()
+	},
+	methods: {
+		getBill() {
+			// 无数据，转圈开始
+			this.listLoading = true
+			get('bill/pageQuery', this.listQuery).then((res) => {
+				this.list = res.data.list.map(v => {
+					return {
+						...v,
+						date: this.getDate(v.date) }
+				})
+				this.total = res.data.total
+				console.log('billllllllll', res)
+			})
+			// 数据有，转圈结束
+			this.listLoading = false
+			// console.log('1111111',this.roles);
+		},
+		getRefresh() {
+			this.getBill()
+			this.id = undefined
+		},
+		handleFilter() {
+			get('bill/findBillById', { id: this.id }).then((res) => {
+				this.list = res.data
+				this.total = res.data.length
+			})
+		},
+		handleModifyStatus(row, status) {
+			this.$message({
+				message: '操作Success',
+				type: 'success'
+			})
+			row.status = status
+		},
+		sortChange(data) {
+			const { prop, order } = data
+			if (prop === 'id') {
+				this.sortByID(order)
+			}
+		},
+		sortByID(order) {
+			if (order === 'ascending') {
+				this.listQuery.sort = '+id'
+			} else {
+				this.listQuery.sort = '-id'
+			}
+			this.handleFilter()
+		},
+		resetTemp() {
+			this.temp = {
+				id: undefined
+			}
+		},
+		handleCreate() {
+			this.formDisable = false
+			this.resetTemp()
+			this.dialogStatus = 'create'
+			this.dialogFormVisible = true
+			this.$nextTick(() => {
+				this.$refs['dataForm'].clearValidate()
+			})
+		},
+		createData() {
+			this.temp.date = moment(this.temp.date).format('YYYY-MM-DD HH:mm:ss')
+			this.temp.state = parseInt(this.temp.state),
+			this.$refs['dataForm'].validate((valid) => {
+				if (valid) {
+					post('bill/saveOrUpdate', this.temp).then((res) => {
+						this.dialogFormVisible = false
+						// 重新更新数据
+						this.getBill()
+						this.$notify({
+							title: 'Success',
+							message: '保存成功',
+							type: 'success',
+							duration: 2000
+						})
+					})
+				}
+			})
+		},
+		handleUpdate(row, action) {
+			if (action === 'see') {
+				this.formDisable = true
+			} else {
+				this.formDisable = false
+			}
+			this.temp = Object.assign({}, row) // copy obj
+			this.temp.state = this.temp.state.toString(2)
+			this.dialogStatus = 'update'
+			this.dialogFormVisible = true
+			this.$nextTick(() => {
+				this.$refs['dataForm'].clearValidate()
+			})
+		},
+		updateData() {
+			this.temp.date = moment(this.temp.date).format('YYYY-MM-DD HH:mm:ss')
+			this.temp.state = parseInt(this.temp.state)
+			this.$refs['dataForm'].validate((valid) => {
+				if (valid) {
+					post('bill/saveOrUpdate', this.temp).then((res) => {
+						this.dialogFormVisible = false
+						// 重新更新数据
+						this.getBill()
+						this.$notify({
+							title: 'Success',
+							message: '保存成功',
+							type: 'success',
+							duration: 2000
+						})
+					})
+				}
+			})
+		},
+		handleDelete(id) {
+			this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				type: 'warning'
+			}).then(() => {
+				get('bill/deleteById', { id: id }).then(() => {
+					this.getBill()
+				})
+				this.$message({
+					type: 'success',
+					message: '删除成功!'
+				})
+			}).catch(() => {
+				this.$message({
+					type: 'info',
+					message: '已取消删除'
+				})
+			})
+		},
+		formatJson(filterVal) {
+			return this.list.map(v => filterVal.map(j => {
+				if (j === 'timestamp') {
+					return parseTime(v[j])
+				} else {
+					return v[j]
+				}
+			}))
+		},
+		getSortClass: function(key) {
+			const sort = this.listQuery.sort
+			return sort === `+${key}` ? 'ascending' : 'descending'
+		}
+	}
 }
 </script>
 <style>

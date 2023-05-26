@@ -45,7 +45,7 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
       <div style="position:relative">
         <div class="tips">
@@ -68,134 +68,140 @@
 <script>
 // import { validUsername } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
+import { Message } from 'element-ui'
 
 export default {
-  name: 'Login',
-  components: { SocialSign },
-  data() {
-    const validateUsername = (rule, value, callback) => {
-      const reg = /^[a-zA-Z0-9]{3,8}$/
-      if (!value) {
-        callback(new Error('用户名不能为空'))
-      } else if (!reg.test(value)) {
-        callback(new Error('用户名必须为 3-8 位字母数字组合'))
-      } else {
-        callback()
-      }
-    }
+	name: 'Login',
+	components: { SocialSign },
+	data() {
+		const validateUsername = (rule, value, callback) => {
+			const reg = /^[a-zA-Z0-9]{3,8}$/
+			if (!value) {
+				callback(new Error('用户名不能为空'))
+			} else if (!reg.test(value)) {
+				callback(new Error('用户名必须为 3-8 位字母数字组合'))
+			} else {
+				callback()
+			}
+		}
 
-    const validatePassword = (rule, value, callback) => { // 密码的约束函数
-      if (!value) {
-        return callback(new Error('请输入密码'))
-      }
-      if (value.length < 6) {
-        return callback(new Error('密码长度不能少于6位'))
-      }
-      callback()
-    }
-    return {
-      loginForm: { // 表单提交的数据
-        username: 'admin1',
-        password: '123321'
-      },
-      loginRules: { // 用户名密码的约束
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
-      },
-      passwordType: 'password',
-      capsTooltip: false,
-      loading: false,
-      showDialog: false,
-      redirect: undefined,
-      otherQuery: {}
-    }
-  },
-  watch: {
-    $route: {
-      handler: function(route) {
-        const query = route.query
-        if (query) {
-          this.redirect = query.redirect
-          this.otherQuery = this.getOtherQuery(query)
-        }
-      },
-      immediate: true
-    }
-  },
-  created() {
-    // window.addEventListener('storage', this.afterQRScan)
-  },
-  mounted() {
-    if (this.loginForm.username === '') {
-      this.$refs.username.focus()
-    } else if (this.loginForm.password === '') {
-      this.$refs.password.focus()
-    }
-  },
-  destroyed() {
-    // window.removeEventListener('storage', this.afterQRScan)
-  },
-  methods: {
-    checkCapslock(e) {
-      const { key } = e
-      this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
-    },
-    showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
-      } else {
-        this.passwordType = 'password'
-      }
-      this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
-    },
-    handleLogin() { // 点击登录按钮时触发的方法
-      this.$refs.loginForm.validate(valid => {
-        if (valid) { // 表单验证通过后，可以进入
-          this.loading = true
-          // 将数据对象提交给仓库下user模块中的login方法处理
-          this.$store.dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.loading = false
-            })
-            .catch(() => {
-              this.loading = false
-            })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
-    getOtherQuery(query) {
-      return Object.keys(query).reduce((acc, cur) => {
-        if (cur !== 'redirect') {
-          acc[cur] = query[cur]
-        }
-        return acc
-      }, {})
-    }
-    // afterQRScan() {
-    //   if (e.key === 'x-admin-oauth-code') {
-    //     const code = getQueryObject(e.newValue)
-    //     const codeMap = {
-    //       wechat: 'code',
-    //       tencent: 'code'
-    //     }
-    //     const type = codeMap[this.auth_type]
-    //     const codeName = code[type]
-    //     if (codeName) {
-    //       this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-    //         this.$router.push({ path: this.redirect || '/' })
-    //       })
-    //     } else {
-    //       alert('第三方登录失败')
-    //     }
-    //   }
-    // }
-  }
+		const validatePassword = (rule, value, callback) => { // 密码的约束函数
+			if (!value) {
+				return callback(new Error('请输入密码'))
+			}
+			if (value.length < 6) {
+				return callback(new Error('密码长度不能少于6位'))
+			}
+			callback()
+		}
+		return {
+			loginForm: { // 表单提交的数据
+				username: 'admin1',
+				password: '123321'
+			},
+			loginRules: { // 用户名密码的约束
+				username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+				password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+			},
+			passwordType: 'password',
+			capsTooltip: false,
+			loading: false,
+			showDialog: false,
+			redirect: undefined,
+			otherQuery: {}
+		}
+	},
+	watch: {
+		$route: {
+			handler: function(route) {
+				const query = route.query
+				if (query) {
+					this.redirect = query.redirect
+					this.otherQuery = this.getOtherQuery(query)
+				}
+			},
+			immediate: true
+		}
+	},
+	created() {
+		// window.addEventListener('storage', this.afterQRScan)
+	},
+	mounted() {
+		if (this.loginForm.username === '') {
+			this.$refs.username.focus()
+		} else if (this.loginForm.password === '') {
+			this.$refs.password.focus()
+		}
+	},
+	destroyed() {
+		// window.removeEventListener('storage', this.afterQRScan)
+	},
+	methods: {
+		checkCapslock(e) {
+			const { key } = e
+			this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
+		},
+		showPwd() {
+			if (this.passwordType === 'password') {
+				this.passwordType = ''
+			} else {
+				this.passwordType = 'password'
+			}
+			this.$nextTick(() => {
+				this.$refs.password.focus()
+			})
+		},
+		handleLogin() { // 点击登录按钮时触发的方法
+			this.$refs.loginForm.validate(valid => {
+				if (valid) { // 表单验证通过后，可以进入
+					this.loading = true
+					// 将数据对象提交给仓库下user模块中的login方法处理
+					this.$store.dispatch('user/login', this.loginForm)
+						.then(() => {
+							this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+							this.loading = false
+						})
+						.catch(() => {
+							this.loading = false
+							Message({
+								message: '登陆失败，请输入正确的用户名密码！！！',
+								type: 'error',
+								duration: 5 * 1000
+							})
+						})
+				} else {
+					console.log('error submit!!')
+					return false
+				}
+			})
+		},
+		getOtherQuery(query) {
+			return Object.keys(query).reduce((acc, cur) => {
+				if (cur !== 'redirect') {
+					acc[cur] = query[cur]
+				}
+				return acc
+			}, {})
+		}
+		// afterQRScan() {
+		//   if (e.key === 'x-admin-oauth-code') {
+		//     const code = getQueryObject(e.newValue)
+		//     const codeMap = {
+		//       wechat: 'code',
+		//       tencent: 'code'
+		//     }
+		//     const type = codeMap[this.auth_type]
+		//     const codeName = code[type]
+		//     if (codeName) {
+		//       this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
+		//         this.$router.push({ path: this.redirect || '/' })
+		//       })
+		//     } else {
+		//       alert('第三方登录失败')
+		//     }
+		//   }
+		// }
+	}
 }
 </script>
 

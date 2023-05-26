@@ -55,31 +55,31 @@ import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
 
 export default {
-  components: {
-    Breadcrumb,
-    Hamburger,
-    ErrorLog,
-    Screenfull,
-    SizeSelect,
-    Search
-  },
-  computed: {
-    ...mapGetters([
-      'sidebar',
-      'avatar',
-      'device'
-    ])
-  },
-  methods: {
-    toggleSideBar() {
-      this.$store.dispatch('app/toggleSideBar')
-    },
-    async logout() {
-      await this.$store.dispatch('user/logout')
-      window.localStorage.setItem('token', null) // 将Token信息存储在localStorage中
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
-    }
-  }
+	components: {
+		Breadcrumb,
+		Hamburger,
+		ErrorLog,
+		Screenfull,
+		SizeSelect,
+		Search
+	},
+	computed: {
+		...mapGetters([
+			'sidebar',
+			'avatar',
+			'device'
+		])
+	},
+	methods: {
+		toggleSideBar() {
+			this.$store.dispatch('app/toggleSideBar')
+		},
+		async logout() {
+			await this.$store.dispatch('user/logout')
+			window.localStorage.setItem('token', null) // 将Token信息存储在localStorage中
+			this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+		}
+	}
 }
 </script>
 

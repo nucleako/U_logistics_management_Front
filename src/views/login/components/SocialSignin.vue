@@ -21,33 +21,33 @@
 // import openWindow from '@/utils/open-window'
 
 export default {
-  name: 'SocialSignin',
-  data() {
-    return {
-      wximg: false,
-      qqimg: false
-    }
-  },
-  methods: {
-    wechatHandleClick(thirdpart) {
-      this.wximg = !this.wximg
-      // alert('ws2975435914')
-      // this.$store.commit('SET_AUTH_TYPE', thirdpart)
-      // const appid = 'xxxxx'
-      // const redirect_uri = encodeURIComponent('xxx/redirect?redirect=' + window.location.origin + '/auth-redirect')
-      // const url = 'https://open.weixin.qq.com/connect/qrconnect?appid=' + appid + '&redirect_uri=' + redirect_uri + '&response_type=code&scope=snsapi_login#wechat_redirect'
-      // openWindow(url, thirdpart, 540, 540)
-    },
-    tencentHandleClick(thirdpart) {
-      this.qqimg = !this.qqimg
-      // alert('2975435914')
-      // this.$store.commit('SET_AUTH_TYPE', thirdpart)
-      // const client_id = 'xxxxx'
-      // const redirect_uri = encodeURIComponent('xxx/redirect?redirect=' + window.location.origin + '/auth-redirect')
-      // const url = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=' + client_id + '&redirect_uri=' + redirect_uri
-      // openWindow(url, thirdpart, 540, 540)
-    }
-  }
+	name: 'SocialSignin',
+	data() {
+		return {
+			wximg: false,
+			qqimg: false
+		}
+	},
+	methods: {
+		wechatHandleClick(thirdpart) {
+			this.wximg = !this.wximg
+			// alert('ws2975435914')
+			// this.$store.commit('SET_AUTH_TYPE', thirdpart)
+			// const appid = 'xxxxx'
+			// const redirect_uri = encodeURIComponent('xxx/redirect?redirect=' + window.location.origin + '/auth-redirect')
+			// const url = 'https://open.weixin.qq.com/connect/qrconnect?appid=' + appid + '&redirect_uri=' + redirect_uri + '&response_type=code&scope=snsapi_login#wechat_redirect'
+			// openWindow(url, thirdpart, 540, 540)
+		},
+		tencentHandleClick(thirdpart) {
+			this.qqimg = !this.qqimg
+			// alert('2975435914')
+			// this.$store.commit('SET_AUTH_TYPE', thirdpart)
+			// const client_id = 'xxxxx'
+			// const redirect_uri = encodeURIComponent('xxx/redirect?redirect=' + window.location.origin + '/auth-redirect')
+			// const url = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=' + client_id + '&redirect_uri=' + redirect_uri
+			// openWindow(url, thirdpart, 540, 540)
+		}
+	}
 }
 </script>
 
