@@ -3,26 +3,6 @@
     <div class="top">
       <systemmap />
     </div>
-
-    <div class="us-wrapper">
-      <p class="us_title" style="padding-top: 90px;">
-        联系我们<span class="bline" />
-      </p>
-      <ul class="us-contact">
-        <li>
-          <h1>服务热线</h1>
-          <p>13096951181</p>
-        </li>
-        <li>
-          <h1>客服邮箱</h1>
-          <p>NUCLEAKO@GMAIL.COM</p>
-        </li>
-        <li>
-          <h1>公司地址</h1>
-          <p>甘肃：甘肃省兰州市安宁区银滩路街道营门村1号<br></p>
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 <script>
@@ -88,40 +68,7 @@ export default {
 .us_tab li:hover{
   border-bottom: #078be4 solid;
 }
-.us-wrapper {
-  width: 1200px;
-  margin: auto;
-  position: relative;
-  top:35%;
-}
-.us_title {
-  font-size: 32px;
-  font-weight: 700px;
-  color: #333333;
-  text-align: center;
-  position: relative;
-}
-.bline {
-  width: 50px;
-  height: 8px;
-  border-radius: 4px;
-  background: #4e6cef;
-  position: absolute;
-  left: 47.9%;
-  top: 130px;
-}
-.us-contact {
-  padding: 20px 0;
-  margin: 40px 0;
-  margin-left: 80px;
-}
-ul, ol {
-  list-style: none;
-}
-.us-contact li {
-  display: inline-table;
-  width: 33%;
-}
+
 .us-map {
   text-align: center;
   padding: 80px 0;

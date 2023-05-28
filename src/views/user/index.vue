@@ -56,7 +56,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="230" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" width="400" class-name="small-padding fixed-width">
         <template slot-scope="{ row }">
           <el-button type="primary" size="mini" @click="handleUpdate(row,'edit')">
             修改

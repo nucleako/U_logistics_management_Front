@@ -107,7 +107,7 @@
         <el-form-item label="发货人编号" prop="SdCustomerID" required>
           <el-input v-model="temp.SdCustomerID" />
         </el-form-item>
-        <el-form-item label="发货人" prop="SdCustomerName" required>
+        <!-- <el-form-item label="发货人" prop="SdCustomerName" required>
           <el-input v-model="temp.SdCustomerName" />
         </el-form-item>
         <el-form-item label="发货人电话" prop="SdCustomerName">
@@ -121,12 +121,12 @@
         </el-form-item>
         <el-form-item label="发货地址" prop="SdCustomerAddress" required>
           <el-input v-model="temp.SdCustomerAddress" />
-        </el-form-item>
+        </el-form-item> -->
 
         <el-form-item label="收件人编号" prop="RcvCustomerID" required>
           <el-input v-model="temp.RcvCustomerID" />
         </el-form-item>
-        <el-form-item label="收货人" prop="RcvCustomerName" required>
+        <!-- <el-form-item label="收货人" prop="RcvCustomerName" required>
           <el-input v-model="temp.RcvCustomerName" />
         </el-form-item>
         <el-form-item label="收货人电话" prop="RcvCustomerPhone">
@@ -140,7 +140,7 @@
         </el-form-item>
         <el-form-item label="收件地址" prop="RcvCustomerAddress" required>
           <el-input v-model="temp.RcvCustomerAddress" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="订单状态" prop="OrderStatus">
           <el-radio v-model="temp.OrderStatus" label="1">已完结</el-radio>
           <el-radio v-model="temp.OrderStatus" label="0">未完结</el-radio>

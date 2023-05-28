@@ -19,7 +19,9 @@
         animation="BMAP_ANIMATION_BOUNCE"
       >
         <!-- 提示信息 -->
-        <bm-info-window :show="map.show">这是您的当前位置</bm-info-window>
+		<bm-info-window :show="map.show" style="width: 230px;height: 30px;line-height: 1.2em;">
+			这是您的当前位置，您可以通过点击地图来查看最优配送路线和配送时间
+		</bm-info-window>
       </bm-marker>
       <bm-panorama />
       <bm-traffic :predict-date="{ weekday: 7, hour: 12 }" />
@@ -44,71 +46,103 @@ export default {
   name: 'Demo',
   data() {
     return {
-      map: {
-        center: { lng: 103.707647, lat: 36.09687 },
-        zoom: 15,
-        show: true,
-        dragging: true
-      },
-      keyword: '',
-      sourcePoint: '',
-      destinationPoint: ''
+		address1: void 0,
+		address2: void 0,
+		keyword: '',
+		sourcePoint: '',
+		destinationPoint: '',
+		map: {
+			center: { lng: 103.707647, lat: 36.09687 },
+			zoom: 15,
+			show: true,
+			dragging: true,
+		},
     };
   },
 
   methods: {
     handler({ BMap, map }) {
-		map.enableScrollWheelZoom(true);
-		// 修正 this 的指向
-		const self = this;
+  map.enableScrollWheelZoom(true);
+  
+  const self = this;
+  
+  // 设置源点和目的地点，并进行路线规划
+  function setPointAndAddress(lng, lat) {
+    const address = `${lng},${lat}`;
+    const point = new BMap.Point(lng, lat);
+    
+    if (!self.sourcePoint) {
+      // 设置源地址和源点
+      self.sourceAddress = address;
+      self.sourcePoint = point;
+    } else if (!self.destinationPoint) {
+      // 设置目的地地址和目的地点
+      self.destinationAddress = address;
+      self.destinationPoint = point;
+      
+      if (self.sourcePoint && self.destinationPoint) {
+        // 进行路线规划
+        getDrivingRoute();
+      }
+    }
+  }
+  
+  // 获取驾车路线规划
+  function getDrivingRoute() {
+    const driving = new BMap.DrivingRoute(map, {
+      renderOptions: { map: map, autoViewport: true },
+      onSearchComplete: function(results) {
+        if (driving.getStatus() == BMap.STATUS_SUCCESS) {
+          return;
+        }
+        const plan = results.getPlan(0);
+        let output = "从" + self.address1 + "到" + self.address2 + "配送大约需要";
+        const timeInfo = self.splitTimeString(plan.getDuration(true));
+        output += timeInfo + "\n" + "总路程为：";
+        output += plan.getDistance(true) + "\n";
+  
+        Message({
+          message: output,
+          type: 'success',
+          duration: 5 * 1000
+        });
+      }
+    });
+  
+    driving.search(self.sourcePoint, self.destinationPoint);
+  }
+  
+  // 地图点击事件处理函数
+  map.addEventListener('click', (e) => {
+    const lng = e.point.lng;
+    const lat = e.point.lat;
+    console.log('经度:', lng, '纬度:', lat);
+    
+    const point = new BMap.Point(lng, lat);
+    const geoc = new BMap.Geocoder();
+    
+    // 使用逆地理编码获取村庄/地理位置信息
+    geoc.getLocation(point, (result) => {
+      if (result) {
+        if (self.address1) {
+          self.address2 = result.address; // 村庄、地理位置信息
+          console.log(self.address2);
+        } else {
+          self.address1 = result.address; // 村庄、地理位置信息
+        }
+      }
+    });
+    
+    if (self.sourcePoint && self.destinationPoint) {
+      // 清空源点和目的地点
+      self.sourcePoint = '';
+      self.destinationPoint = '';
+    }
+    
+    setPointAndAddress(lng, lat);
+  });
+},
 
-		// 点击事件获取经纬度
-		map.addEventListener('click', function(e) {
-		const lng = e.point.lng;
-		const lat = e.point.lat;
-		console.log('经度:', lng, '纬度:', lat);
-
-		if (self.sourcePoint && self.destinationPoint) {
-			self.sourcePoint = '';
-			self.destinationPoint = '';
-		}
-
-		if (!self.sourcePoint) {
-			// 设置源地址和源点
-			self.sourceAddress = `${lng},${lat}`;
-			self.sourcePoint = new BMap.Point(lng, lat);
-		} else if (!self.destinationPoint) {
-			// 设置目的地地址和目的地点
-			self.destinationAddress = `${lng},${lat}`;
-			self.destinationPoint = new BMap.Point(lng, lat);
-
-			// 进行路线规划
-			if (self.sourcePoint && self.destinationPoint) {
-				const driving = new BMap.DrivingRoute(map, {
-					renderOptions: { map: map, autoViewport: true },
-					onSearchComplete: function(results) {
-						if (driving.getStatus() == BMap.STATUS_SUCCESS) {
-							return ;
-						}
-						var plan = results.getPlan(0);
-						var output = "从起始地到出发地运送大约需要";
-						const timeInfo = self.splitTimeString(plan.getDuration(true));
-						output += timeInfo + "\n";
-						output += "总路程为：" ;
-						output += plan.getDistance(true) + "\n";
-
-						Message({
-							message: output,
-							type: 'success',
-							duration: 5 * 1000
-						})
-					}
-				});
-				driving.search(self.sourcePoint, self.destinationPoint);
-			}
-		}
-		});
-	},
     cleanPas() {
       this.sourcePoint = '';
       this.destinationPoint = '';
