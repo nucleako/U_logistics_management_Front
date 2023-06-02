@@ -9,9 +9,9 @@ U_logistics物流管理FRONT_END
 U_logistics物流管理系统的前端文件
 
 本系统采用JavaScript语言，vue-admin框架编撰，代码简单易懂
-搭配![后端](https://gitee.com/nuclea/U_logistics_management)完成系统构建
-![前端预览](http://43.143.93.202/U_logistics)
-![后端预览](http://43.143.93.202:8000/swagger-ui.html)
+搭配[后端](https://gitee.com/nuclea/U_logistics_management)完成系统构建
+[前端预览](http://43.143.93.202/U_logistics)
+[后端预览](http://43.143.93.202:8000/swagger-ui.html)
 
 
 
