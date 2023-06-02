@@ -19,9 +19,9 @@
         animation="BMAP_ANIMATION_BOUNCE"
       >
         <!-- 提示信息 -->
-		<bm-info-window :show="map.show" style="width: 230px;height: 30px;line-height: 1.2em;">
-			这是您的当前位置，您可以通过点击地图来查看最优配送路线和配送时间
-		</bm-info-window>
+        <bm-info-window :show="map.show" style="width: 230px;height: 30px;line-height: 1.2em;">
+          这是您的当前位置，您可以通过点击地图来查看最优配送路线和配送时间
+        </bm-info-window>
       </bm-marker>
       <bm-panorama />
       <bm-traffic :predict-date="{ weekday: 7, hour: 12 }" />
@@ -63,14 +63,14 @@ export default {
   methods: {
     handler({ BMap, map }) {
   map.enableScrollWheelZoom(true);
-  
+
   const self = this;
-  
+
   // 设置源点和目的地点，并进行路线规划
   function setPointAndAddress(lng, lat) {
     const address = `${lng},${lat}`;
     const point = new BMap.Point(lng, lat);
-    
+
     if (!self.sourcePoint) {
       // 设置源地址和源点
       self.sourceAddress = address;
@@ -79,14 +79,14 @@ export default {
       // 设置目的地地址和目的地点
       self.destinationAddress = address;
       self.destinationPoint = point;
-      
+
       if (self.sourcePoint && self.destinationPoint) {
         // 进行路线规划
         getDrivingRoute();
       }
     }
   }
-  
+
   // 获取驾车路线规划
   function getDrivingRoute() {
     const driving = new BMap.DrivingRoute(map, {
@@ -100,7 +100,7 @@ export default {
         const timeInfo = self.splitTimeString(plan.getDuration(true));
         output += timeInfo + "\n" + "总路程为：";
         output += plan.getDistance(true) + "\n";
-  
+
         Message({
           message: output,
           type: 'success',
@@ -108,19 +108,19 @@ export default {
         });
       }
     });
-  
+
     driving.search(self.sourcePoint, self.destinationPoint);
   }
-  
+
   // 地图点击事件处理函数
   map.addEventListener('click', (e) => {
     const lng = e.point.lng;
     const lat = e.point.lat;
     console.log('经度:', lng, '纬度:', lat);
-    
+
     const point = new BMap.Point(lng, lat);
     const geoc = new BMap.Geocoder();
-    
+
     // 使用逆地理编码获取村庄/地理位置信息
     geoc.getLocation(point, (result) => {
       if (result) {
@@ -132,13 +132,13 @@ export default {
         }
       }
     });
-    
+
     if (self.sourcePoint && self.destinationPoint) {
       // 清空源点和目的地点
       self.sourcePoint = '';
       self.destinationPoint = '';
     }
-    
+
     setPointAndAddress(lng, lat);
   });
 },
